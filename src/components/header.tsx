@@ -12,7 +12,7 @@ function MobileMenuButton({ isOpen, toggle }: { isOpen: boolean; toggle: () => v
 		<Button
 			variant="ghost"
 			onClick={toggle}
-			className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
+			className=" md:hidden"
 		>
 			{isOpen ? <FiX className="h-6 w-6" /> : <FiMenu className="h-6 w-6" />}
 		</Button>
@@ -45,14 +45,14 @@ function ThemeToggleButton() {
 function AuthButtons() {
 	const navigate = useNavigate();
 	return (
-		<div className="space-x-5 flex">
+		<div className="space-x-3 md:space-x-5 flex">
 			<Button
-				className="px-5 py-2 rounded-md  cursor-pointer bg-blue-700 text-white hover:bg-blue-800"
+				className="md:px-5 md:py-2 rounded-md cursor-pointer bg-blue-700 text-white hover:bg-blue-800"
 				label="Login"
 				onClick={() => navigate('/login')}
 			/>
 			<Button
-				className="px-5 py-2 rounded-md border border-foreground cursor-pointer"
+				className="md:px-5 md:py-2 rounded-md border border-foreground cursor-pointer hidden md:block"
 				label="Sign up"
 				onClick={() => navigate('/signup')}
 			/>
@@ -65,7 +65,7 @@ export default function Header() {
 	const toggleMobileMenu = () => setMobileMenuOpen(prev => !prev);
 
 	return (
-		<header className="fixed top-0 left-0 w-full bg-background z-50 p-4 flex items-center gap-5 border-b">
+		<header className="fixed top-0 left-0 w-full bg-background z-50 py-4 md:p-4 flex items-center gap-2 md:gap-5 border-b">
 			<MobileMenuButton isOpen={mobileMenuOpen} toggle={toggleMobileMenu} />
 			<Logo />
 

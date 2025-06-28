@@ -134,7 +134,7 @@ function Home() {
 							aria-hidden="true"
 						></div>
 					</div>
-					<div className="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+					<div className="relative max-w-7xl mx-auto py-16 px-4 sm:py-32 sm:px-6 lg:px-8">
 						<div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 							<div>
 								<h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">

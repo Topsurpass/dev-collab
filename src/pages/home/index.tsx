@@ -141,7 +141,7 @@ function Home() {
 									Collaborate on Amazing Software Projects
 								</h1>
 								<p className="mt-6 text-xl text-gray-800 dark:text-gray-100 max-w-3xl">
-									DevCollab connects talented developers with exciting projects.
+									TeamInSync connects talented developers with exciting projects.
 									Whether you're building something new or need help with an
 									existing project, find the perfect collaborators.
 								</p>
@@ -183,7 +183,7 @@ function Home() {
 					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 						<SectionHeader
 							title="Process"
-							subtitle="How DevCollab Works"
+							subtitle="How TeamInSync Works"
 							description="Simple steps to start collaborating on software projects"
 						/>
 						<div className="mt-10">
@@ -210,12 +210,12 @@ function Home() {
 							</div>
 							<div>
 								<h2 className="text-3xl font-extrabold sm:text-4xl">
-									Why Collaborate on DevCollab?
+									Why Collaborate on TeamInSync?
 								</h2>
 								<p className="mt-4 text-lg">
 									Join a community of developers building amazing software
 									together. Whether you're looking to gain experience, earn money,
-									or build something great, DevCollab has you covered.
+									or build something great, TeamInSync has you covered.
 								</p>
 								<div className="mt-8">
 									{benefits.map((benefit, index) => (
@@ -258,7 +258,7 @@ function Home() {
 					</div>
 					<div className="mt-12 border-t border-gray-200 pt-8">
 						<p className="text-base text-gray-400 text-center">
-							&copy; 2025 DevCollab. All rights reserved.
+							&copy; 2025 TeamInSync. All rights reserved.
 						</p>
 					</div>
 				</div>

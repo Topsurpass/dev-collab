@@ -1,6 +1,7 @@
 import Home from '@pages/home';
 import PublicRoute from '@/routes/public-route';
 import PublicLayout from '@/layout/public-layout';
+import Login from '@pages/login';
 
 const routeConfig = [
 	{
@@ -14,6 +15,10 @@ const routeConfig = [
 			{
 				index: true,
 				element: <Home />,
+			},
+			{
+				path: '/login',
+				element: <Login />,
 			},
 		],
 	},

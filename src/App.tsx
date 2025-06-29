@@ -1,11 +1,11 @@
 import RouteRenderer from '@/routes/route-renderer';
-import { ThemeProvider } from '@/context/theme-context.tsx';
+import Provider from '@/providers';
 
 function App() {
 	return (
-		<ThemeProvider>
+		<Provider>
 			<RouteRenderer />
-		</ThemeProvider>
+		</Provider>
 	);
 }
 

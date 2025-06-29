@@ -1,19 +1,17 @@
-import { NavigationMenuBar } from '@/components/navigation-bar';
-import { useTheme } from '@/context/theme-context';
-import { WiDayLightWind } from 'react-icons/wi';
-import { GiNightSleep } from 'react-icons/gi';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { FiMenu, FiX, FiCode } from 'react-icons/fi';
+import { WiDayLightWind } from 'react-icons/wi';
+import { GiNightSleep } from 'react-icons/gi';
 import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router-dom';
+import { useTheme } from '@/providers/theme-provider';
+import { NavigationMenuBar } from '@/components/navigation-bar';
+import { cn } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 
 function MobileMenuButton({ isOpen, toggle }: { isOpen: boolean; toggle: () => void }) {
 	return (
-		<Button
-			variant="ghost"
-			onClick={toggle}
-			className=" md:hidden"
-		>
+		<Button variant="ghost" onClick={toggle} className="md:hidden">
 			{isOpen ? <FiX className="h-6 w-6" /> : <FiMenu className="h-6 w-6" />}
 		</Button>
 	);
@@ -21,9 +19,11 @@ function MobileMenuButton({ isOpen, toggle }: { isOpen: boolean; toggle: () => v
 
 function Logo() {
 	return (
-		<div className="flex-shrink-0 flex items-center">
-			<FiCode className="h-8 w-8 text-indigo-600" />
-			<span className="ml-2 text-xl font-bold text-foreground">DevCollab</span>
+		<div className="flex-shrink-0 flex items-center gap-2">
+			<Link to="/" className="flex items-center gap-2">
+				<FiCode className="h-8 w-8 text-indigo-600" />
+				<span className="text-xl font-bold text-foreground">TeamInSync</span>
+			</Link>
 		</div>
 	);
 }
@@ -32,7 +32,7 @@ function ThemeToggleButton() {
 	const { theme, toggleTheme } = useTheme();
 
 	return (
-		<div onClick={toggleTheme} className="text-white rounded hover:cursor-pointer hover:bg-none ">
+		<div onClick={toggleTheme} className="text-white rounded hover:cursor-pointer">
 			{theme === 'dark' ? (
 				<GiNightSleep className="ml-2 dark:text-yellow-400 mr-2" size={25} />
 			) : (
@@ -64,20 +64,24 @@ export default function Header() {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const toggleMobileMenu = () => setMobileMenuOpen(prev => !prev);
 
+	const location = useLocation();
+	const hideAuthButtons = ['/login', '/signup'].includes(location.pathname);
+
 	return (
 		<header className="fixed top-0 left-0 w-full bg-background z-50 py-4 md:p-4 flex items-center gap-2 md:gap-5 border-b">
-			<MobileMenuButton isOpen={mobileMenuOpen} toggle={toggleMobileMenu} />
-			<Logo />
-
-			<nav className="hidden md:flex-1 md:flex">
-				<NavigationMenuBar />
-			</nav>
-
-			<div className="flex-1 flex justify-end items-center">
-				<ThemeToggleButton />
+			{!hideAuthButtons && (
+				<MobileMenuButton isOpen={mobileMenuOpen} toggle={toggleMobileMenu} />
+			)}
+			<div className={cn('', { 'ml-4 md:ml-0': hideAuthButtons })}>
+				<Logo />
 			</div>
-
-			<AuthButtons />
+			<nav className="hidden md:flex-1 md:flex">
+				{!hideAuthButtons && <NavigationMenuBar />}
+			</nav>
+			<div className="flex-1 flex justify-end items-center">
+				{!hideAuthButtons && <ThemeToggleButton />}
+			</div>
+			{!hideAuthButtons && <AuthButtons />}
 		</header>
 	);
 }

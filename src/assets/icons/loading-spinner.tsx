@@ -1,11 +1,11 @@
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
 export default function LoadingSpinner({ className }: { className: string }) {
 	return (
 		<svg
 			aria-hidden="true"
 			role="status"
-			className={cn('h-4 w-4 animate-spin text-white', className)}
+			className={cn("h-4 w-4 animate-spin text-white", className)}
 			viewBox="0 0 100 101"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"

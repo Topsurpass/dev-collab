@@ -128,30 +128,29 @@
 	html {
 		@apply font-lusitana;
 	}
+	[type="text"],
+	[type="email"],
+	[type="password"],
+	[type="number"],
+	[type="date"],
+	[type="tel"],
+	textarea,
+	select {
+		@apply block w-full rounded-md border border-gray-300 py-2 pl-5 text-foreground shadow-sm outline-none focus:border focus:border-blue-400 focus:ring-0 focus:ring-blue-200 disabled:cursor-not-allowed disabled:bg-gray-200/50 disabled:text-gray-500 dark:bg-gray-900;
+	}
+
+	input[type="number"]::-webkit-inner-spin-button,
+	input[type="number"]::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	input[type="checkbox"] {
+		@apply h-5 w-5 rounded text-blue-500 hover:cursor-pointer focus:ring-0;
+	}
+
+	.input-label {
+		@apply mb-1 flex text-base;
+	}
 }
 
-@layer components {
-	.shadow-custom-inset {
-	  box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
-	}
-	
-	.shadow-primary\/30 {
-	  box-shadow: 0 1px 3px 0 oklch(var(--primary) / 0.3), 0 1px 2px 0 oklch(var(--primary) / 0.3);
-	}
-	
-	/* Repeat for other color shadows (destructive/30, success/30 etc) */
-	
-	.from-royal-400 {
-	  --tw-gradient-from: oklch(var(--primary) / 0.8);
-	  --tw-gradient-to: oklch(var(--primary) / 0);
-	  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-	}
-	
-	.to-royal-600 {
-	  --tw-gradient-to: oklch(var(--primary) / 1);
-	}
-	
-	.backdrop-blur-sm {
-	  backdrop-filter: blur(4px);
-	}
-  }

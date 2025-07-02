@@ -54,7 +54,7 @@ export default function SignUpForm() {
 				</div>
 
 				<div className="flex md:w-1/2 flex-col items-center md:items-start justify-center md:p-5 bg-transparent">
-					<Card className="border-0 bg-transparent shadow-none sm:w-full lg:w-2/3">
+					<Card className="border-0 bg-transparent shadow-none w-full sm:w-2/3 md:w-full lg:w-2/3">
 						<CardHeader className="">
 							<CardTitle className="text-2xl font-normal">
 								Create an account

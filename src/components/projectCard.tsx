@@ -36,7 +36,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
 		<Card className="hover:shadow-lg transition-shadow duration-300">
 			<CardHeader>
 				<div className="flex justify-between items-start">
-					<CardTitle className="text-lg">{project.title}</CardTitle>
+					<CardTitle className="text-lg font-normal">{project.title}</CardTitle>
 					<span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
 						{project.status}
 					</span>

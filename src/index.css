@@ -150,7 +150,7 @@
 	}
 
 	.input-label {
-		@apply mb-1 flex text-base;
+		/*@apply mb-1 flex text-base;*/
 	}
 }
 

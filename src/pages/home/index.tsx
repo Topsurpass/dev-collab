@@ -3,7 +3,7 @@ import { projects, processSteps, footerSections, benefits } from '@/data/homepag
 import type { IconType } from 'react-icons';
 import CodeEditor from '@/components/code-editor';
 import { Button } from '@/components/ui/button';
-import { View } from 'lucide-react';
+import ProjectCard from '@/components/projectCard';
 
 export interface SectionHeaderProps {
 	title: string;
@@ -11,17 +11,23 @@ export interface SectionHeaderProps {
 	description?: string;
 }
 
+export interface memberProps {
+	name: string;
+	role: string;
+	avatar: string;
+}
 export interface Project {
 	id: number;
 	title: string;
 	description: string;
 	skills: string[];
-	budget: string;
+	members: memberProps[];
 	proposals: number;
 }
 
 export interface ProjectCardProps {
 	project: Project;
+	extraMembers: number;
 }
 
 export interface ProcessStepProps {
@@ -47,40 +53,6 @@ const SectionHeader = ({ title, subtitle, description }: SectionHeaderProps) => 
 			{subtitle}
 		</p>
 		{description && <p className="mt-4 max-w-2xl text-xl lg:mx-auto">{description}</p>}
-	</div>
-);
-
-const ProjectCard = ({ project }: ProjectCardProps) => (
-	<div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-300">
-		<div className="p-6">
-			<div className="flex justify-between">
-				<h3 className="text-lg font-medium text-gray-900">{project.title}</h3>
-				<span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-					Open
-				</span>
-			</div>
-			<p className="mt-2 text-sm text-gray-500">{project.description}</p>
-			<div className="mt-4">
-				<div className="flex flex-wrap gap-2">
-					{project.skills.map((skill, index) => (
-						<span
-							key={index}
-							className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800"
-						>
-							{skill}
-						</span>
-					))}
-				</div>
-			</div>
-			<div className="mt-6 flex justify-between items-center">
-				<div>
-					<p className="text-sm font-medium text-gray-900">{project.budget}</p>
-					<p className="text-xs text-gray-500">{project.proposals} proposals</p>
-				</div>
-
-				<View className="cursor-pointer dark:text-black" />
-			</div>
-		</div>
 	</div>
 );
 
@@ -169,7 +141,10 @@ function Home() {
 						<div className="mt-10">
 							<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 								{projects.map(project => (
-									<ProjectCard key={project.id} project={project} />
+									<ProjectCard
+										key={project.id}
+										project={project}
+									/>
 								))}
 							</div>
 							<div className="mt-12 text-center">

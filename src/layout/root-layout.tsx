@@ -1,12 +1,10 @@
 import { Outlet } from 'react-router-dom';
 import Header from '@/components/header';
-import ScrollToTop from '@/components/scrollToTop';
 
-export default function PublicLayout() {
+export default function RootLayout() {
 	return (
 		<div className="min-h-screen flex flex-col ">
-			<ScrollToTop />
-			<Header />
+			{/*<Header />*/}
 			<main className="pt-[80px] flex-1">
 				<Outlet />
 			</main>

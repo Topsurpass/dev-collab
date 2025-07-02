@@ -41,7 +41,7 @@ export default function ReactSelectField({
 				return (
 					<>
 						{label && (
-							<label htmlFor={name} className="input-label">
+							<label htmlFor={name} className="">
 								{label}
 							</label>
 						)}

@@ -54,7 +54,7 @@ function AuthButtons() {
 			<Button
 				className="md:px-5 md:py-2 rounded-md border border-foreground cursor-pointer hidden md:block"
 				label="Sign up"
-				onClick={() => navigate('/signup')}
+				onClick={() => navigate('/register')}
 			/>
 		</div>
 	);
@@ -65,7 +65,7 @@ export default function Header() {
 	const toggleMobileMenu = () => setMobileMenuOpen(prev => !prev);
 
 	const location = useLocation();
-	const hideAuthButtons = ['/login', '/signup'].includes(location.pathname);
+	const hideAuthButtons = ['/login', '/register'].includes(location.pathname);
 
 	return (
 		<header className="fixed top-0 left-0 w-full bg-background z-50 py-4 md:p-4 flex items-center gap-2 md:gap-5 border-b">

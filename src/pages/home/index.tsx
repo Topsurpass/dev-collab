@@ -97,7 +97,7 @@ const FooterColumn = ({ title, items }: FooterColumnProps) => (
 
 function Home() {
 	return (
-		<div className="min-h-screen">
+		<div className="min-h-screen-minus-100">
 			<main>
 				<div className="relative">
 					<div className="absolute inset-0">
@@ -141,10 +141,7 @@ function Home() {
 						<div className="mt-10">
 							<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 								{projects.map(project => (
-									<ProjectCard
-										key={project.id}
-										project={project}
-									/>
+									<ProjectCard key={project.id} project={project} />
 								))}
 							</div>
 							<div className="mt-12 text-center">

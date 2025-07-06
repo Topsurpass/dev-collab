@@ -1,3 +1,7 @@
+import type { DropdownItem } from '@/components/dropdown';
+import { FiUser, FiSettings, FiLogOut } from 'react-icons/fi';
+import useAuthStore from '@/stores/user-store';
+
 type MenuLink = {
 	title: string;
 	href?: string;
@@ -76,5 +80,52 @@ export const navigationMenuData: NavigationGroup[] = [
 				description: 'Get help and support for using devCollab.',
 			},
 		],
+	},
+];
+
+export const dropdownItems: DropdownItem[] = [
+	{
+		type: 'label',
+		label: 'My Account',
+	},
+	{
+		type: 'item',
+		label: 'Profile',
+		icon: <FiUser />,
+		href: '/profile',
+	},
+	{
+		type: 'item',
+		label: 'Settings',
+		icon: <FiSettings />,
+		href: '/settings',
+	},
+	{
+		type: 'separator',
+	},
+	{
+		type: 'submenu',
+		label: 'Invite Users',
+		items: [
+			{
+				type: 'item',
+				label: 'Email',
+				href: '/invite/email',
+			},
+			{
+				type: 'item',
+				label: 'Message',
+				href: '/invite/message',
+			},
+		],
+	},
+	{
+		type: 'separator',
+	},
+	{
+		type: 'auth',
+		label: 'Logout',
+		icon: <FiLogOut />,
+		onClick: () => useAuthStore.getState().reset(),
 	},
 ];

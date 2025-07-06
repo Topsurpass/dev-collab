@@ -6,6 +6,7 @@ import {
 	CardDescription,
 	CardFooter,
 } from '@/components/ui/card';
+import { useState } from 'react';
 
 interface Member {
 	name: string;
@@ -29,8 +30,15 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = ({ project }: ProjectCardProps) => {
+	const [expanded, setExpanded] = useState(false);
 	const visibleMembers = project.members.slice(0, 4);
 	const extraMembers = project.members.length - visibleMembers.length;
+
+	const toggleDescription = () => setExpanded(prev => !prev);
+
+	const descriptionLimit = 100;
+	const shouldTruncate = project.description.length > descriptionLimit;
+	const shortDescription = project.description.slice(0, descriptionLimit);
 
 	return (
 		<Card className="hover:shadow-lg transition-shadow duration-300">
@@ -41,8 +49,17 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
 						{project.status}
 					</span>
 				</div>
-				<CardDescription className="text-sm truncate">
-					{project.description}
+
+				<CardDescription className="text-sm">
+					{expanded || !shouldTruncate ? project.description : `${shortDescription}...`}
+					{shouldTruncate && (
+						<span
+							onClick={toggleDescription}
+							className="ml-1 text-blue-600 dark:text-green-500 cursor-pointer underline text-xs"
+						>
+							{expanded ? 'Read less' : 'Read more'}
+						</span>
+					)}
 				</CardDescription>
 			</CardHeader>
 

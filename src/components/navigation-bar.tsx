@@ -9,13 +9,24 @@ import {
 	NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 
-import { navigationMenuData } from '@/data/nav-menu-data';
+type MenuLink = {
+	title: string;
+	href?: string;
+	description?: string;
+	icon?: React.ReactNode;
+	children?: MenuLink[];
+};
 
-export function NavigationMenuBar() {
+type NavigationGroup = {
+	label: string;
+	items: MenuLink[];
+};
+
+export function NavigationMenuBar({ menuData }: { menuData: NavigationGroup[] }) {
 	return (
 		<NavigationMenu viewport={false}>
 			<NavigationMenuList>
-				{navigationMenuData.map(group => (
+				{menuData.map(group => (
 					<NavigationMenuItem key={group.label}>
 						<NavigationMenuTrigger>{group.label}</NavigationMenuTrigger>
 						<NavigationMenuContent>
@@ -61,7 +72,7 @@ function ListItem({
 			<NavigationMenuLink asChild>
 				<Link to={href} className="flex items-start no-underline">
 					<div>
-						<div className='flex gap-2  items-center'>
+						<div className="flex gap-2  items-center">
 							{icon && <span className="text-muted-foreground">{icon}</span>}
 							<div className="text-sm font-medium leading-none">{title}</div>
 						</div>

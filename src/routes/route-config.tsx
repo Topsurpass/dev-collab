@@ -4,10 +4,12 @@ import PublicLayout from '@/layout/public-layout';
 import NoHeaderLayout from '@/layout/no-header-layout';
 import Login from '@pages/login';
 import SignUp from '@pages/sign-up';
+import Dashboard from '@/pages/dashboard';
 import CompleteProfile from '@pages/complete-profile';
 import ProtectedRoute from '@/routes/protected-route';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import NotFoundPage from '@pages/error';
+import ProtectedLayout from '@/layout/protected-layout';
 
 const routeConfig = [
 	{
@@ -58,6 +60,25 @@ const routeConfig = [
 				element: (
 					<ErrorBoundary>
 						<CompleteProfile />
+					</ErrorBoundary>
+				),
+			},
+		],
+	},
+	{
+		path: '/',
+		element: (
+			<ProtectedRoute>
+				<ProtectedLayout />
+			</ProtectedRoute>
+		),
+		children: [
+			{
+				index: true,
+				path: 'dashboard',
+				element: (
+					<ErrorBoundary>
+						<Dashboard />
 					</ErrorBoundary>
 				),
 			},

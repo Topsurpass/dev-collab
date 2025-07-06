@@ -37,9 +37,9 @@ export default function LoginForm() {
 	};
 
 	return (
-		<div className="relative flex w-full flex-col">
+		<div className="relative flex w-full flex-col min-h-screen-minus-100 items-center justify-center">
 			<form className="mx-auto flex w-full flex-col md:flex-row md:gap-5 md:px-4">
-				<div className="hidden md:flex md:w-1/2 mt-3">
+				<div className="hidden md:flex md:w-1/2">
 					<div
 						className="flex w-full flex-col items-center justify-center bg-cover md:bg-contain bg-center bg-no-repeat md:justify-evenly"
 						style={{ backgroundImage: `url("${Rectangle}")` }}

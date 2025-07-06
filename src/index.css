@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lusitana:wght@400;700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import 'tailwindcss';
-@import "tw-animate-css";
+@import 'tw-animate-css';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -9,6 +9,15 @@
 	--font-lusitana: 'Lusitana', 'Inter', 'sans-serif';
 	--font-roboto: 'Roboto', 'Inter', 'sans-serif';
 	--font-inter: 'Inter', 'sans-serif';
+}
+
+@layer utilities {
+	.h-screen-minus-100 {
+		height: calc(100vh - 100px);
+	}
+	.min-h-screen-minus-100 {
+		min-height: calc(100vh - 100px);
+	}
 }
 
 @theme inline {
@@ -119,33 +128,33 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+	* {
+		@apply border-border outline-ring/50;
 	}
-  body {
-    @apply bg-background text-foreground;
+	body {
+		@apply bg-background text-foreground;
 	}
 	html {
 		@apply font-lusitana;
 	}
-	[type="text"],
-	[type="email"],
-	[type="password"],
-	[type="number"],
-	[type="date"],
-	[type="tel"],
+	[type='text'],
+	[type='email'],
+	[type='password'],
+	[type='number'],
+	[type='date'],
+	[type='tel'],
 	textarea,
 	select {
 		@apply block w-full rounded-md border border-gray-300 py-3 pl-5 text-foreground shadow-sm outline-none focus:border focus:border-blue-400 focus:ring-0 focus:ring-blue-200 disabled:cursor-not-allowed disabled:bg-gray-200/50 disabled:text-gray-500 dark:bg-gray-900;
 	}
 
-	input[type="number"]::-webkit-inner-spin-button,
-	input[type="number"]::-webkit-outer-spin-button {
+	input[type='number']::-webkit-inner-spin-button,
+	input[type='number']::-webkit-outer-spin-button {
 		-webkit-appearance: none;
 		margin: 0;
 	}
 
-	input[type="checkbox"] {
+	input[type='checkbox'] {
 		@apply h-5 w-5 rounded text-blue-500 hover:cursor-pointer focus:ring-0;
 	}
 
@@ -153,4 +162,3 @@
 		/*@apply mb-1 flex text-base;*/
 	}
 }
-

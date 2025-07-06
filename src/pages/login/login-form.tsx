@@ -37,7 +37,7 @@ export default function LoginForm() {
 	};
 
 	return (
-		<div className="relative flex w-full flex-col min-h-screen-minus-100 items-center justify-center">
+		<div className="relative flex w-full flex-col min-h-screen-minus-100 md:items-center md:justify-center">
 			<form className="mx-auto flex w-full flex-col md:flex-row md:gap-5 md:px-4">
 				<div className="hidden md:flex md:w-1/2">
 					<div

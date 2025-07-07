@@ -129,3 +129,35 @@ export const dropdownItems: DropdownItem[] = [
 		onClick: () => useAuthStore.getState().reset(),
 	},
 ];
+
+export const getProjectFilterItems = (
+	_currentFilter: string,
+	setActiveFilter: (value: string) => void,
+): DropdownItem[] => {
+	const statuses = ['all', 'active', 'completed', 'cancelled', 'on_hold'];
+
+	const statusLabels: Record<string, string> = {
+		all: 'All',
+		active: 'Active',
+		completed: 'Completed',
+		cancelled: 'Cancelled',
+		on_hold: 'On Hold',
+	};
+
+	return [
+		{
+			type: 'label',
+			label: 'Filter Project',
+		},
+		{
+			type: 'separator',
+		},
+		...statuses.flatMap(status => [
+			{
+				type: 'auth' as const,
+				label: statusLabels[status] || status,
+				onClick: () => setActiveFilter(status),
+			},
+		]),
+	];
+};

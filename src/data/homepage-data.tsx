@@ -1,15 +1,15 @@
 import { FiSearch, FiUser, FiUsers, FiDollarSign } from 'react-icons/fi';
+import type { ProjectCardProps } from '@/types/project-list-types';
 
-export const projects = [
+export const ProjectData: ProjectCardProps[] = [
 	{
 		id: 1,
 		title: 'E-commerce Platform Migration',
 		description:
-			'Migrate existing Magento store to a modern React-based headless commerce solution',
+			'A comprehensive overhaul of an existing Magento-based e-commerce store to a modern, performant headless commerce solution powered by React. The project aims to improve site performance, scalability, and flexibility while integrating with a Node.js backend and GraphQL API layer. The migration includes redesigning the user experience, optimizing SEO, and ensuring seamless third-party integrations.',
 		skills: ['React', 'Node.js', 'GraphQL'],
-		budget: '$5,000 - $10,000',
 		proposals: 12,
-		status: 'Ongoing',
+		status: 'active',
 		members: [
 			{
 				name: 'Alice Johnson',
@@ -41,11 +41,11 @@ export const projects = [
 	{
 		id: 2,
 		title: 'AI-Powered Analytics Dashboard',
-		description: 'Develop a dashboard with machine learning insights for e-commerce businesses',
+		description:
+			'Development of an intelligent analytics dashboard that leverages machine learning models to deliver real-time insights into customer behavior, sales trends, and inventory performance for e-commerce businesses. The dashboard features interactive visualizations powered by D3.js, a React frontend for responsiveness, and backend ML models built with Python and TensorFlow.',
 		skills: ['Python', 'TensorFlow', 'D3.js', 'React'],
-		budget: '$15,000+',
 		proposals: 8,
-		status: 'Ongoing',
+		status: 'completed',
 		members: [
 			{
 				name: 'Fiona Brooks',
@@ -68,11 +68,10 @@ export const projects = [
 		id: 3,
 		title: 'Mobile App for Fitness Tracking',
 		description:
-			'Create a cross-platform fitness app with social features and health integrations',
+			'Design and development of a cross-platform fitness tracking mobile application aimed at social engagement and health monitoring. The app features personalized workout plans, real-time activity tracking, integration with wearable devices via HealthKit API, and a social feed for sharing progress. Built using React Native and Firebase for real-time data and authentication.',
 		skills: ['React Native', 'Firebase', 'HealthKit API'],
-		budget: '$8,000 - $12,000',
 		proposals: 15,
-		status: 'Ongoing',
+		status: 'cancelled',
 		members: [
 			{
 				name: 'Ian Brown',
@@ -89,11 +88,11 @@ export const projects = [
 	{
 		id: 4,
 		title: 'Blockchain Supply Chain Solution',
-		description: 'Implement a blockchain-based system for supply chain transparency',
+		description:
+			'An enterprise-grade supply chain solution using blockchain technology to ensure product authenticity, traceability, and real-time tracking across distribution networks. Built on Ethereum using Solidity smart contracts, this solution integrates Web3.js for frontend interactions and Node.js for business logic. The system enables all supply chain participants to verify transactions in a transparent, tamper-proof environment.',
 		skills: ['Solidity', 'Ethereum', 'Web3.js', 'Node.js'],
-		budget: '$20,000+',
 		proposals: 6,
-		status: 'Ongoing',
+		status: 'on_hold',
 		members: [
 			{
 				name: 'Kevin Hart',
@@ -133,6 +132,7 @@ export const projects = [
 		],
 	},
 ];
+
 
 export const processSteps = [
 	{

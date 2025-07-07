@@ -17,7 +17,7 @@ export default function DataSearchInput({
 	...props
 }: IProps) {
 	const [value, setValue] = useState<number | string>(initialValue);
-	const inputRef = useRef<any>(null);
+	const inputRef = useRef<HTMLInputElement>(null);
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setValue(event.target.value);
 	};

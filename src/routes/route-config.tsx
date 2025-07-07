@@ -4,12 +4,15 @@ import PublicLayout from '@/layout/public-layout';
 import NoHeaderLayout from '@/layout/no-header-layout';
 import Login from '@pages/login';
 import SignUp from '@pages/sign-up';
-import Dashboard from '@/pages/dashboard';
+import AllProjects from '@/pages/dashboard/all-projects';
+import DashboardLayout from '@/pages/dashboard';
 import CompleteProfile from '@pages/complete-profile';
 import ProtectedRoute from '@/routes/protected-route';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import NotFoundPage from '@pages/error';
 import ProtectedLayout from '@/layout/protected-layout';
+import FavoriteProjects from '@/pages/dashboard/favorite-projects.tsx';
+import OngoingProjects from '@/pages/dashboard/ongoing-projects.tsx';
 
 const routeConfig = [
 	{
@@ -29,7 +32,7 @@ const routeConfig = [
 				),
 			},
 			{
-				path: '/login',
+				path: 'login',
 				element: (
 					<ErrorBoundary>
 						<Login />
@@ -37,7 +40,7 @@ const routeConfig = [
 				),
 			},
 			{
-				path: '/register',
+				path: 'register',
 				element: (
 					<ErrorBoundary>
 						<SignUp />
@@ -46,6 +49,7 @@ const routeConfig = [
 			},
 		],
 	},
+
 	{
 		path: '/',
 		element: (
@@ -55,7 +59,6 @@ const routeConfig = [
 		),
 		children: [
 			{
-				index: true,
 				path: 'create-profile',
 				element: (
 					<ErrorBoundary>
@@ -65,6 +68,7 @@ const routeConfig = [
 			},
 		],
 	},
+
 	{
 		path: '/',
 		element: (
@@ -74,13 +78,38 @@ const routeConfig = [
 		),
 		children: [
 			{
-				index: true,
 				path: 'dashboard',
 				element: (
 					<ErrorBoundary>
-						<Dashboard />
+						<DashboardLayout />
 					</ErrorBoundary>
 				),
+				children: [
+					{
+						index: true,
+						element: (
+							<ErrorBoundary>
+								<AllProjects />
+							</ErrorBoundary>
+						),
+					},
+					{
+						path: 'favorite-projects',
+						element: (
+							<ErrorBoundary>
+								<FavoriteProjects />
+							</ErrorBoundary>
+						),
+					},
+					{
+						path: 'ongoing-projects',
+						element: (
+							<ErrorBoundary>
+								<OngoingProjects />
+							</ErrorBoundary>
+						),
+					},
+				],
 			},
 		],
 	},

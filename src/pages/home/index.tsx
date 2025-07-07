@@ -1,5 +1,5 @@
 import { FiCheck } from 'react-icons/fi';
-import { projects, processSteps, footerSections, benefits } from '@/data/homepage-data';
+import { ProjectData, processSteps, footerSections, benefits } from '@/data/homepage-data';
 import type { IconType } from 'react-icons';
 import CodeEditor from '@/components/code-editor';
 import { Button } from '@/components/ui/button';
@@ -15,19 +15,6 @@ export interface memberProps {
 	name: string;
 	role: string;
 	avatar: string;
-}
-export interface Project {
-	id: number;
-	title: string;
-	description: string;
-	skills: string[];
-	members: memberProps[];
-	proposals: number;
-}
-
-export interface ProjectCardProps {
-	project: Project;
-	extraMembers: number;
 }
 
 export interface ProcessStepProps {
@@ -114,7 +101,7 @@ function Home() {
 								</h1>
 								<p className="mt-6 text-xl text-gray-800 dark:text-gray-100 max-w-3xl">
 									TeamInSync connects talented developers with exciting projects.
-									Whether you're building something new or need help with an
+									Whether you&apos;re building something new or need help with an
 									existing project, find the perfect collaborators.
 								</p>
 								<div className="mt-10 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
@@ -140,8 +127,8 @@ function Home() {
 						/>
 						<div className="mt-10">
 							<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-								{projects.map(project => (
-									<ProjectCard key={project.id} project={project} />
+								{ProjectData.map(project => (
+									<ProjectCard key={project.id} {...project} />
 								))}
 							</div>
 							<div className="mt-12 text-center">
@@ -186,8 +173,8 @@ function Home() {
 								</h2>
 								<p className="mt-4 text-lg">
 									Join a community of developers building amazing software
-									together. Whether you're looking to gain experience, earn money,
-									or build something great, TeamInSync has you covered.
+									together. Whether you&apos;re looking to gain experience, earn
+									money, or build something great, TeamInSync has you covered.
 								</p>
 								<div className="mt-8">
 									{benefits.map((benefit, index) => (

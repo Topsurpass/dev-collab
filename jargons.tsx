@@ -149,3 +149,67 @@ export default function UserInformation() {
 		</div>
 	);
 }
+
+
+
+import { useEffect, useState } from 'react';
+import { Search } from 'lucide-react';
+import { cn } from '@/lib/utils';
+
+type IProps = {
+	value: string;
+	onChange: (val: string) => void;
+	debounce?: number;
+	className?: string;
+} & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'>;
+
+export default function DataSearchInput({
+	value: initialValue,
+	onChange,
+	debounce = 300, // Reduced debounce time
+	className = '',
+	...props
+}: IProps) {
+	const [inputValue, setInputValue] = useState<string>(initialValue.toString());
+
+	// Sync with external value changes
+	useEffect(() => {
+		setInputValue(initialValue.toString());
+	}, [initialValue]);
+
+	// Debounce the onChange calls
+	useEffect(() => {
+		if (inputValue === initialValue) return;
+
+		const timeout = setTimeout(() => {
+			onChange(inputValue);
+		}, debounce);
+
+		return () => clearTimeout(timeout);
+	}, [inputValue, debounce, onChange, initialValue]);
+
+	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setInputValue(event.target.value);
+	};
+
+	return (
+		<div className="group relative">
+			<div className="pointer-events-none absolute inset-y-0 left-0 flex items-center px-2.5 text-gray-500">
+				<Search size={20} />
+			</div>
+			<input
+				type="text"
+				className={cn(
+					'focus:ring-primary-200 pl-10 focus:border-primary/40',
+					'block w-full rounded-md py-2 pr-10',
+					'shadow-sm outline-none transition-all placeholder:text-sm',
+					'hover:bg-gray-50 dark:hover:bg-transparent',
+					className,
+				)}
+				value={inputValue}
+				onChange={handleInputChange}
+				{...props}
+			/>
+		</div>
+	);
+}

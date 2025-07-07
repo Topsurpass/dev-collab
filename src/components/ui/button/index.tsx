@@ -55,7 +55,7 @@ export interface ButtonProps
 	disabled?: boolean;
 	loadingText?: string;
 	children?: React.ReactNode;
-	icon?: any;
+	icon?: React.ElementType;
 	iconPosition?: 'start' | 'end';
 }
 
@@ -98,14 +98,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
 			return (
 				<div className="flex items-center gap-2">
-					{icon && iconPosition === 'start' && (
+					{Icon && iconPosition === 'start' && (
 						<Icon
 							size={18}
 							className="transition-transform group-hover:translate-x-0.5"
 						/>
 					)}
 					<span>{label}</span>
-					{icon && iconPosition === 'end' && (
+					{Icon && iconPosition === 'end' && (
 						<Icon
 							size={18}
 							className="transition-transform group-hover:translate-x-0.5"

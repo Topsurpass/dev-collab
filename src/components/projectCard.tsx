@@ -6,30 +6,14 @@ import {
 	CardDescription,
 	CardFooter,
 } from '@/components/ui/card';
-import { useState } from 'react';
+import { useState, type Key } from 'react';
+import { GrFavorite } from 'react-icons/gr';
+import { Badge } from '@/components/ui/badge';
+import _ from 'lodash';
+import type { ProjectCardProps } from '@/types/project-list-types';
+import { StatusColor } from '@/types/enum';
 
-interface Member {
-	name: string;
-	role: string;
-	avatar: string;
-}
-
-interface Project {
-	id: number;
-	title: string;
-	description: string;
-	skills: string[];
-	budget: string;
-	proposals: number;
-	status: string;
-	members: Member[];
-}
-
-interface ProjectCardProps {
-	project: Project;
-}
-
-const ProjectCard = ({ project }: ProjectCardProps) => {
+const ProjectCard = (project: ProjectCardProps) => {
 	const [expanded, setExpanded] = useState(false);
 	const visibleMembers = project.members.slice(0, 4);
 	const extraMembers = project.members.length - visibleMembers.length;
@@ -41,13 +25,13 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
 	const shortDescription = project.description.slice(0, descriptionLimit);
 
 	return (
-		<Card className="hover:shadow-lg transition-shadow duration-300">
+		<Card className="hover:shadow-lg transition-shadow duration-300 w-full">
 			<CardHeader>
-				<div className="flex justify-between items-start">
+				<div className="flex justify-between items-start gap-5">
 					<CardTitle className="text-lg font-normal">{project.title}</CardTitle>
-					<span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-						{project.status}
-					</span>
+					<Badge className={`${StatusColor[project.status as keyof typeof StatusColor]}`}>
+						{_.capitalize(project.status)}
+					</Badge>
 				</div>
 
 				<CardDescription className="text-sm">
@@ -65,7 +49,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
 
 			<CardContent>
 				<div className="flex flex-wrap gap-2">
-					{project.skills.map((skill, index) => (
+					{project.skills.map((skill: string, index: number) => (
 						<span
 							key={index}
 							className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800"
@@ -78,14 +62,19 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
 
 			<CardFooter className="flex justify-between items-center">
 				<div className="flex -space-x-2">
-					{visibleMembers.map((member, idx) => (
-						<img
-							key={idx}
-							alt={member.name}
-							src={member.avatar}
-							className="inline-block size-8 rounded-full ring-2 ring-white"
-						/>
-					))}
+					{visibleMembers.map(
+						(
+							member: { name: string | undefined; avatar: string | undefined },
+							idx: Key | null | undefined,
+						) => (
+							<img
+								key={idx}
+								alt={member.name}
+								src={member.avatar}
+								className="inline-block size-8 rounded-full ring-2 ring-white"
+							/>
+						),
+					)}
 					{extraMembers > 0 && (
 						<div className="flex size-8 items-center justify-center rounded-full bg-gray-300 text-sm text-white ring-2 ring-white">
 							+{extraMembers}
@@ -93,7 +82,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
 					)}
 				</div>
 
-				<p className="text-xs">{project.proposals} proposals</p>
+				<GrFavorite />
 			</CardFooter>
 		</Card>
 	);

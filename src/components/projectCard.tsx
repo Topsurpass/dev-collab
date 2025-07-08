@@ -81,17 +81,17 @@ export default function ProjectCard({
 			<CardContent className="grid gap-4">
 				<div>
 					<div className="flex items-center justify-between mb-1">
-						<h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
-							<FaUserAlt className="text-xs" />
+						<h3 className="text-sm font-medium flex items-center gap-2">
+							<FaUserAlt className="" />
 							Roles Needed
 						</h3>
 					</div>
 
 					<div className="flex flex-wrap gap-2">
 						{required_roles.map(role => (
-							<div key={role.id} className="">
+							<div key={role.id} className="h-3">
 								<div className="flex justify-between items-center">
-									<span className="font-medium text-xs">{role.role_name}</span>
+									<span className="font-medium text-sm text-gray-500 dark:text-gray-400">{role.role_name}</span>
 								</div>
 							</div>
 						))}
@@ -100,8 +100,8 @@ export default function ProjectCard({
 
 				<div>
 					<div className="flex items-center justify-between mb-1">
-						<h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
-							<FaTools className="text-xs" />
+						<h3 className="text-sm font-medium flex items-center gap-2">
+							<FaTools className="" />
 							Required Skills
 						</h3>
 					</div>

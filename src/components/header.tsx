@@ -6,6 +6,7 @@ import { NavigationMenuBar } from '@/components/navigation-bar';
 import { cn } from '@/lib/utils';
 import { Link } from 'react-router-dom';
 import ThemeToggleButton from '@/components/theme-toggle';
+import type { NavigationItem } from '@/data/nav-menu-data';
 
 function MobileMenuButton({ isOpen, toggle }: { isOpen: boolean; toggle: () => void }) {
 	return (
@@ -49,8 +50,7 @@ function AuthButtons() {
 }
 
 interface HeaderProps {
-	isAuthenticated?: boolean;
-	menuData?: any[];
+	menuData?: NavigationItem[];
 }
 
 export default function Header({ menuData = [] }: HeaderProps) {

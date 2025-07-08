@@ -10,6 +10,7 @@ import { dropdownItems } from '@/data/nav-menu-data';
 import ThemeToggleButton from '@/components/theme-toggle';
 import useGetProfile from '@/api/profile/use-get-profile';
 import _ from 'lodash';
+import type { NavigationItem } from '@/data/nav-menu-data';
 
 function MobileMenuButton({ isOpen, toggle }: { isOpen: boolean; toggle: () => void }) {
 	return (
@@ -53,7 +54,7 @@ function NotificationButton() {
 }
 
 interface HeaderProps {
-	menuData?: any[];
+	menuData?: NavigationItem[];
 }
 
 export default function ProtectedHeader({ menuData = [] }: HeaderProps) {

@@ -15,7 +15,9 @@ type NavigationGroup = {
 	items: MenuLink[];
 };
 
-export const navigationMenuData: NavigationGroup[] = [
+export type NavigationItem = NavigationGroup | MenuLink;
+
+export const PublicNavigationMenuData: NavigationGroup[] = [
 	{
 		label: 'Find project',
 		items: [
@@ -83,6 +85,24 @@ export const navigationMenuData: NavigationGroup[] = [
 	},
 ];
 
+export const ProtectedNavigationMenuData: NavigationItem[] = [
+	{
+		label: 'Projects',
+		items: [
+			{
+				title: 'Post a project',
+				href: '/post-project',
+				description: 'Create a new project to find collaborators.',
+			},
+		],
+	},
+	{
+		title: 'Messages',
+		href: '/messages',
+		description: 'Your personalized overview page.',
+	},
+];
+
 export const dropdownItems: DropdownItem[] = [
 	{
 		type: 'label',
@@ -90,35 +110,17 @@ export const dropdownItems: DropdownItem[] = [
 	},
 	{
 		type: 'item',
-		label: 'Profile',
+		label: 'Your profile',
 		icon: <FiUser />,
 		href: '/profile',
 	},
 	{
 		type: 'item',
-		label: 'Settings',
+		label: 'Account settings',
 		icon: <FiSettings />,
 		href: '/settings',
 	},
-	{
-		type: 'separator',
-	},
-	{
-		type: 'submenu',
-		label: 'Invite Users',
-		items: [
-			{
-				type: 'item',
-				label: 'Email',
-				href: '/invite/email',
-			},
-			{
-				type: 'item',
-				label: 'Message',
-				href: '/invite/message',
-			},
-		],
-	},
+
 	{
 		type: 'separator',
 	},

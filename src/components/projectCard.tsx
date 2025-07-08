@@ -12,7 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import _ from 'lodash';
 import type { ProjectCardProps } from '@/types/project-list-types';
 import { StatusColor } from '@/types/enum';
-import { FaUserAlt } from 'react-icons/fa';
+import { FaUserAlt, FaTools } from 'react-icons/fa';
 
 interface ProjectCardFullProps extends ProjectCardProps {
 	onclickCard?: (id: number) => void;
@@ -39,9 +39,11 @@ export default function ProjectCard({
 	const shouldTruncate = description.length > descriptionLimit;
 	const shortDescription = description.slice(0, descriptionLimit);
 
-	// Calculate total roles needed
-	const totalRolesNeeded = useMemo(() => {
-		return required_roles.reduce((sum, role) => sum + role.number_required, 0);
+	const allSkills = useMemo(() => {
+		const skills = required_roles.flatMap(role =>
+			role.required_skills.map(skill => skill.skill_name),
+		);
+		return Array.from(new Set(skills));
 	}, [required_roles]);
 
 	return (
@@ -78,66 +80,47 @@ export default function ProjectCard({
 
 			<CardContent className="grid gap-4">
 				<div>
-					<div className="flex items-center justify-between mb-2">
-						<h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">
+					<div className="flex items-center justify-between mb-1">
+						<h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+							<FaUserAlt className="text-xs" />
 							Roles Needed
 						</h3>
-						<div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
-							<FaUserAlt className="text-xs" />
-							<span>{totalRolesNeeded} positions</span>
-						</div>
 					</div>
 
 					<div className="flex flex-wrap gap-2">
 						{required_roles.map(role => (
-							<div
-								key={role.id}
-								className="border rounded-lg p-2 bg-gray-50 dark:bg-gray-800 w-full max-w-[200px]"
-							>
-								<div className="flex justify-between items-center mb-1">
-									<span className="font-medium text-sm">{role.role_name}</span>
-									<span className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full px-2 py-0.5">
-										{role.number_required} needed
-									</span>
+							<div key={role.id} className="">
+								<div className="flex justify-between items-center">
+									<span className="font-medium text-xs">{role.role_name}</span>
 								</div>
-
-								{role.required_skills.length > 0 && (
-									<div className="flex flex-wrap gap-1 mt-1">
-										{role.required_skills.map(skill => (
-											<span
-												key={skill.id}
-												className="inline-block bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 text-xs px-2 py-0.5 rounded"
-											>
-												{skill.skill_name}
-											</span>
-										))}
-									</div>
-								)}
 							</div>
 						))}
 					</div>
 				</div>
 
-				{/* Skills Summary */}
 				<div>
-					<h3 className="text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
-						Key Skills
-					</h3>
-					<div className="flex flex-wrap gap-1">
-						{Array.from(
-							new Set(
-								required_roles.flatMap(role =>
-									role.required_skills.map(skill => skill.skill_name),
-								),
-							),
-						).map((skill, index) => (
-							<span
-								key={index}
-								className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200"
-							>
-								{skill}
+					<div className="flex items-center justify-between mb-1">
+						<h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
+							<FaTools className="text-xs" />
+							Required Skills
+						</h3>
+					</div>
+
+					<div className="flex flex-wrap gap-2">
+						{allSkills.length > 0 ? (
+							allSkills.map((skill, index) => (
+								<span
+									key={index}
+									className="inline-flex items-center px-2 rounded-full text-xs font-medium bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200"
+								>
+									{skill}
+								</span>
+							))
+						) : (
+							<span className="text-xs text-gray-500 italic">
+								No specific skills required
 							</span>
-						))}
+						)}
 					</div>
 				</div>
 			</CardContent>

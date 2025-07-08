@@ -1,9 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
-import AuthHTTP from "@/lib/http-client";
-import QueryKeys from "@/api/query-keys";
+import { useQuery } from '@tanstack/react-query';
+import AuthHTTP from '@/lib/http-client';
+import QueryKeys from '@/api/query-keys';
 
 interface IParameters {
-	[key: string]: any;
+	[key: string]: unknown;
 }
 
 const url = `/api/v1/users/profile/`;

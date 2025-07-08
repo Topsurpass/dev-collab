@@ -131,9 +131,6 @@ function Home() {
 									<ProjectCard key={project.id} {...project} />
 								))}
 							</div>
-							<div className="mt-12 text-center">
-								<Button label="Browse All Projects" />
-							</div>
 						</div>
 					</div>
 				</div>

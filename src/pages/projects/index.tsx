@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useForm, FormProvider, type SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { addProjectSchema, type AddProjectInputs } from "@/validations/project-skills-schema";
-import CreateNewProject from "./add-project-form";
-import useProject from "@/api/projects/use-mutate-project";
+import { useForm, FormProvider, type SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { addProjectSchema, type AddProjectInputs } from '@/validations/project-skills-schema';
+import CreateNewProject from './add-project-form';
+import useProject from '@/api/projects/use-mutate-project';
 
 const initialValues = {
-	title: "",
-	description: "",
-	status: "pending",
+	title: '',
+	description: '',
+	status: 'pending',
 };
 
 export default function NewProject() {
@@ -19,7 +19,7 @@ export default function NewProject() {
 
 	const { mutate: addNewProject, isPending } = useProject();
 
-	const processForm: SubmitHandler<AddProjectInputs> = async (data) => {
+	const processForm: SubmitHandler<AddProjectInputs> = async data => {
 		const transformFormData = {
 			title: data.title,
 			description: data.description,

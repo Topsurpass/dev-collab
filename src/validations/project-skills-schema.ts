@@ -26,12 +26,9 @@ export const addProjectSchema = z.object({
 						}),
 					)
 					.min(1, { message: 'At least one skill is required' }),
-				number_required: z
-					.string()
-					.transform(val => Number(val))
-					.refine(val => !isNaN(val) && val >= 1, {
-						message: 'Minimum contributor is 1',
-					}),
+				number_required: z.string().refine(val => !isNaN(Number(val)) && Number(val) >= 1, {
+					message: 'Minimum contributor is 1',
+				}),
 			}),
 		)
 		.min(1, { message: 'At least one role is required' }),

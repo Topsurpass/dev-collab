@@ -74,14 +74,14 @@ export default function CompleteProfile() {
 	const processForm: SubmitHandler<ProfileInputs> = async (data) => {
 		const formData: any = new FormData();
 		formData.append("profile_picture", data?.profile_picture);
-		formData.append("role", data?.role.value);
+		formData.append("role_name", data?.role.label);
 		formData.append("bio", data?.bio);
 		formData.append("full_name", data?.full_name);
 		formData.append("experience_level", data?.experience_level.value);
 		formData.append("portfolio_link", data?.portfolio_link);
 		formData.append("github_link", data?.github_link);
 		formData.append("linkedin_link", data?.linkedin_link);
-		const skillsString = data?.skills.map((skill: any) => skill.value).join(",");
+		const skillsString = data?.skills.map((skill: any) => skill.label).join(",");
 		formData.append("skills", skillsString);
 		updateProfile(formData, {
 			onSuccess: () => {

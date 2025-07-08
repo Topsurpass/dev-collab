@@ -74,7 +74,6 @@ export default function SkillsModal() {
 						<TextField
 							label="Number of Contributors"
 							name={`roles.${index}.number_required`}
-							type="number"
 							control={control}
 							placeholder="How many contributors do you need?"
 							className="bg-white border-gray-300 text-black"

@@ -4,6 +4,7 @@ const QueryKeys = {
 	GET_SKILLS: "GET_SKILLS",
 	GET_ROLES: "GET_ROLES",
 	GET_PROFILE: "GET_PROFILE",
+	GET_PROJECTS: "GET_PROJECTS",
 } as const;
 
 export default QueryKeys;

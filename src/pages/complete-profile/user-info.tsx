@@ -7,6 +7,7 @@ import EventFileUpload from './profile-pic-upload';
 import useGetRoles from '@/api/roles/use-get-roles';
 import { ReactSelect } from '@/components/ui/forms';
 import useGetProfile from '@/api/profile/use-get-profile';
+import { ProfileFormSkeleton } from '@/components/skeletons/profile-form-skeleton';
 
 const initialState = {
 	result: {} as File,
@@ -15,7 +16,10 @@ const initialState = {
 	error: [],
 };
 
-export default function UserInformation() {
+type UserInformationProps = {
+	onLoadingStateChange?: (loading: boolean) => void;
+};
+export default function UserInformation({ onLoadingStateChange }: UserInformationProps) {
 	const {
 		control,
 		setValue,
@@ -36,6 +40,10 @@ export default function UserInformation() {
 			})) || [],
 		[data],
 	);
+
+	useEffect(() => {
+		onLoadingStateChange?.(isLoading);
+	}, [isLoading, onLoadingStateChange]);
 
 	// Restore image preview when navigating back
 	useEffect(() => {
@@ -98,8 +106,9 @@ export default function UserInformation() {
 			trigger('profile_picture');
 		}
 	}, [file, setValue, trigger]);
-
-	return (
+	return isLoading ? (
+		<ProfileFormSkeleton />
+	) : (
 		<div className="flex justify-center">
 			<Card className="w-full max-w-3xl border-0 bg-transparent shadow-none">
 				<CardContent className="mt-5 space-y-6">

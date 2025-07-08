@@ -27,6 +27,8 @@ const initialValues = {
 
 export default function CompleteProfile() {
 	const [activeStep, setActiveStep] = useState(1);
+	const [userInfoLoading, setUserInfoLoading] = useState(false);
+	const [skillsInfoLoading, setSkillsInfoLoading] = useState(false);
 	const isLastStep = activeStep === steps.length;
 	const { mutate: updateProfile, isPending } = useProfileUpdate();
 	const store = useAuthStore((state) => state);
@@ -61,9 +63,9 @@ export default function CompleteProfile() {
 	const RenderStep = useCallback(() => {
 		switch (activeStep) {
 			case 1:
-				return <UserInfo />;
+				return <UserInfo onLoadingStateChange={setUserInfoLoading} />;
 			case 2:
-				return <SkillsInformation />;
+				return <SkillsInformation onLoadingStateChange={setSkillsInfoLoading} />;
 			default:
 				return null;
 		}
@@ -119,7 +121,7 @@ export default function CompleteProfile() {
 					nextStep={nextStep}
 					isLastStep={isLastStep}
 					handleSubmit={methods.handleSubmit(processForm)}
-					isLoading={isPending}
+					isLoading={isPending || userInfoLoading || skillsInfoLoading}
 				/>
 			</div>
 		</div>

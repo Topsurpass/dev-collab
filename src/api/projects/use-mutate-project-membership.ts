@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import AuthHTTP from "@/lib/http-client";
@@ -14,13 +13,12 @@ type RequestPayload = {
 	}[];
 };
 
-export default function useProject() {
-	const navigate = useNavigate();
+export default function useProjectMembership() {
 	return useMutation({
 		mutationFn: async (requestPayload: RequestPayload) => {
 			try {
 				const res = await AuthHTTP.post(
-					"/api/v1/projects/projects/",
+					"/api/v1/projects/memberships/",
 					requestPayload
 				);
 				return res;
@@ -30,10 +28,9 @@ export default function useProject() {
 		},
 		onSuccess: (res) => {
 			const resData = res.data as any;
-			toast.success("Project Added successfully!", {
+			toast.success("Membership Request sent successfully!", {
 				description: resData.message,
 			});
-			navigate("/");
 		},
 		onError: (err: any) => {
 			toast.error("Failed", {

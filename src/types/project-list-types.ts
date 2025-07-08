@@ -1,32 +1,35 @@
-// export type ProjectListProps = {
-// 	id: number;
-// 	title: string;
-// 	status: "Ongoing" | "Completed" | "Pending";
-// 	description: string;
-// 	profession: string[];
-// 	date: string;
-// 	members: {
-// 		name: string;
-// 		role: string;
-// 		avatar: string;
-// 	}[];
+export type ProjectStatus = 'in_progress' | 'completed' | 'cancelled' | 'on_hold' | 'all' | 'pending';
 
-import { StatusColor } from "@/types/enum";
+export interface Skill {
+	id: number;
+	skill_name: string;
+}
 
+export interface RequiredRole {
+	id: number;
+	role_name: string;
+	number_required: number;
+	required_skills: Skill[];
+}
 
-export type ProjectStatus = keyof typeof StatusColor;
-interface Member {
-	name: string;
-	role: string;
-	avatar: string;
+export interface Member {
+	id: string;
+	user: number;
+	project: number;
+	profile_picture_url: string;
+	role_id: number
+	status: string;
+	joined_id: string;
 }
 
 export interface ProjectCardProps {
 	id: number;
 	title: string;
 	description: string;
-	skills: string[];
-	proposals: number;
 	status: ProjectStatus;
-	members: Member[];
+	owner: number;
+	created_at: string;
+	updated_at: string;
+	required_roles: RequiredRole[];
+	team_members: Member[];
 }

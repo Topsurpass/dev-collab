@@ -19,16 +19,12 @@ export default function AllProjects() {
 	}
 
 	return (
-		<>
-			{isLoading ? (
-				<ProjectLoadingSkeleton length={6} />
-			) : (
-				<ProjectListPage
-					title="Project Dashboard"
-					description="Browse and manage all projects"
-					projects={projectData ?? []}
-				/>
-			)}
-		</>
+		<ProjectListPage
+			title="Project Dashboard"
+			description="Browse and manage all projects"
+			projects={projectData ?? []}
+			isLoading={isLoading}
+			loadingComponent={<ProjectLoadingSkeleton length={6} />}
+		/>
 	);
 }

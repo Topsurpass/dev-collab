@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "sonner";
-import AuthHTTP from "@/lib/http-client";
+import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'sonner';
+import AuthHTTP from '@/lib/http-client';
 
 type RequestPayload = {
 	title: string;
@@ -19,24 +19,21 @@ export default function useProject() {
 	return useMutation({
 		mutationFn: async (requestPayload: RequestPayload) => {
 			try {
-				const res = await AuthHTTP.post(
-					"/api/v1/projects/projects/",
-					requestPayload
-				);
+				const res = await AuthHTTP.post('/api/v1/projects/projects/', requestPayload);
 				return res;
 			} catch (error) {
 				return Promise.reject(error);
 			}
 		},
-		onSuccess: (res) => {
-			const resData = res.data as any;
-			toast.success("Project Added successfully!", {
-				description: resData.message,
+		onSuccess: () => {
+			toast.success('Project added successfully', {
+				description: 'Your project is live and ready for collaborations!',
 			});
-			navigate("/");
+			navigate('/');
 		},
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		onError: (err: any) => {
-			toast.error("Failed", {
+			toast.error('Failed', {
 				description: err?.response?.data?.errors?.email,
 			});
 		},

@@ -13,6 +13,8 @@ import NotFoundPage from '@pages/error';
 import ProtectedLayout from '@/layout/protected-layout';
 import FavoriteProjects from '@/pages/dashboard/favorite-projects.tsx';
 import OngoingProjects from '@/pages/dashboard/ongoing-projects.tsx';
+import NewProject from '@/pages/projects';
+import { element } from 'prop-types';
 
 const routeConfig = [
 	{
@@ -111,6 +113,14 @@ const routeConfig = [
 					},
 				],
 			},
+			{
+				path: "/post-project",
+				element:(
+					<ErrorBoundary>
+						<NewProject/>
+					</ErrorBoundary>
+				)
+			}
 		],
 	},
 	{

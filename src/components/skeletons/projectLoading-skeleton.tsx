@@ -5,29 +5,6 @@ type ProjectLengthProp = {
 export function ProjectLoadingSkeleton({ length = 6 }: ProjectLengthProp) {
 	return (
 		<div className="min-h-screen-minus-100">
-			<header className="mb-8">
-				<div className="h-6 w-1/3 rounded bg-muted animate-pulse mb-2" />
-				<div className="h-4 w-1/2 rounded bg-muted animate-pulse" />
-			</header>
-
-			<div className="mb-8">
-				<div className="flex flex-col md:flex-row gap-4 justify-between">
-					<div className="w-full md:max-w-xs">
-						<div className="h-10 w-full rounded-xl bg-muted animate-pulse" />
-					</div>
-
-					<div className="md:hidden flex justify-end">
-						<div className="h-10 w-24 rounded bg-muted animate-pulse" />
-					</div>
-
-					<div className="hidden md:flex flex-wrap gap-2">
-						{Array.from({ length: 4 }).map((_, i) => (
-							<div key={i} className="h-8 w-20 rounded bg-muted animate-pulse" />
-						))}
-					</div>
-				</div>
-			</div>
-
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 				{Array.from({ length }).map((_, i) => (
 					<div

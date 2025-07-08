@@ -25,6 +25,8 @@ interface ProjectListPageProps {
 	description?: string;
 	projects: ProjectCardProps[];
 	defaultStatusFilter?: string;
+	isLoading?: boolean;
+	loadingComponent?: React.ReactNode;
 }
 
 export default function ProjectListPage({
@@ -32,6 +34,8 @@ export default function ProjectListPage({
 	description = 'Browse and manage your projects',
 	projects,
 	defaultStatusFilter = 'all',
+	isLoading,
+	loadingComponent,
 }: ProjectListPageProps) {
 	const [displayCount, setDisplayCount] = useState(PROJECTS_PER_PAGE);
 	const [activeFilter, setActiveFilter] = useState(defaultStatusFilter);
@@ -101,9 +105,10 @@ export default function ProjectListPage({
 					</div>
 				</div>
 			</div>
-
 			<div>
-				{visibleProjects.length > 0 ? (
+				{isLoading ? (
+					(loadingComponent ?? null)
+				) : visibleProjects.length > 0 ? (
 					<>
 						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 							{visibleProjects.map(project => (

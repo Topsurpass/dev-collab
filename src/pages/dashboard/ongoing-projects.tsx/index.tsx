@@ -19,16 +19,12 @@ export default function OngoingProjects() {
 	}
 
 	return (
-		<>
-			{isLoading ? (
-				<ProjectLoadingSkeleton length={6} />
-			) : (
-				<ProjectListPage
-					title="Ongoing Projects"
-					description="Browse and manage all your current projects"
-					projects={projectData ?? []}
-				/>
-			)}
-		</>
+		<ProjectListPage
+			title="Ongoing Projects"
+			description="Browse and manage all your current projects"
+			projects={projectData ?? []}
+			isLoading={isLoading}
+			loadingComponent={<ProjectLoadingSkeleton length={6} />}
+		/>
 	);
 }

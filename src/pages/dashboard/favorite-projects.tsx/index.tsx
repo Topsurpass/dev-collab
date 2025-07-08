@@ -19,16 +19,12 @@ export default function FavoriteProjects() {
 	}
 
 	return (
-		<>
-			{isLoading ? (
-				<ProjectLoadingSkeleton length={6} />
-			) : (
-				<ProjectListPage
-					title="Favorite Projects"
-					description="Browse and manage all your favorite projects"
-					projects={projectData ?? []}
-				/>
-			)}
-		</>
+		<ProjectListPage
+			title="Favorite Projects"
+			description="Browse and manage all your favorite projects"
+			projects={projectData ?? []}
+			isLoading={isLoading}
+			loadingComponent={<ProjectLoadingSkeleton length={6} />}
+		/>
 	);
 }

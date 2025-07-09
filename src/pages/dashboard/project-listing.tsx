@@ -98,9 +98,8 @@ export default function ProjectListPage({
 								variant={activeFilter === status ? 'primary' : 'outline'}
 								onClick={() => setActiveFilter(status)}
 								className="capitalize text-xs px-2 md:px-4 py-0"
-							>
-								{statusLabels[status] || status}
-							</Button>
+								label={statusLabels[status] || status}
+							/>
 						))}
 					</div>
 				</div>
@@ -123,9 +122,12 @@ export default function ProjectListPage({
 
 						{hasMoreProjects && (
 							<div className="mt-5 text-center">
-								<Button onClick={loadMore} className="text-base" variant="primary">
-									Load More
-								</Button>
+								<Button
+									onClick={loadMore}
+									className="text-base"
+									variant="primary"
+									label="Load More"
+								/>
 							</div>
 						)}
 					</>

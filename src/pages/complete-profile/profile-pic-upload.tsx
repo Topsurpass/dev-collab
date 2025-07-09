@@ -17,7 +17,7 @@ export default function EventFileUpload({
 		() =>
 			!isDragActive && !file?.hasFile ? (
 				<div className="flex flex-col items-center justify-center">
-					<div className="relative flex h-20 w-20 flex-col items-center justify-center rounded-full bg-gray-200 text-center text-sm">
+					<div className="relative flex h-10 w-10 md:h-20 md:w-20 flex-col items-center justify-center rounded-full bg-gray-200 text-center text-sm">
 						<UploadCloud size={25} color="gray" />
 						<span>Upload photo</span>
 					</div>
@@ -30,12 +30,12 @@ export default function EventFileUpload({
 		() =>
 			file?.hasFile ? (
 				<div className="relative">
-					<Avatar className="h-30 w-30 rounded-full border">
+					<Avatar className="h-15 w-15 md:h-30 md:w-30 rounded-full border">
 						<AvatarImage src={file?.preview} alt="Uploaded Image" />
 					</Avatar>
 					<button
 						type="button"
-						className="absolute right-0 top-0 mr-12 rounded-full bg-gray-500 p-1 text-white"
+						className="absolute right-0 top-0 mr-4 md:mr-12 rounded-full bg-gray-500 p-1 text-white"
 						onClick={e => {
 							e.stopPropagation();
 							e.preventDefault();
@@ -56,7 +56,7 @@ export default function EventFileUpload({
 				{...getRootProps({
 					className: cn(
 						'relative flex items-center justify-center rounded-full cursor-pointer',
-						'w-30 h-30 bg-gray-100 border border-gray-300 overflow-hidden',
+						'h-15 w-15 md:w-30 md:h-30 bg-gray-100 border border-gray-300 overflow-hidden',
 					),
 				})}
 			>

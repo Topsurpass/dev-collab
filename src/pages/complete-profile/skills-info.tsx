@@ -4,7 +4,7 @@ import { ReactSelect } from '@/components/ui/forms';
 import useGetSkills from '@/api/skills/use-get-skills';
 import { TextField } from '@/components/ui/forms';
 import useGetProfile from '@/api/profile/use-get-profile';
-import { ProfileLinksSkeleton } from '@/components/skeletons/profile-form-skeleton';
+import { ProfileLinksSkeleton } from '@/components/skeletons/profile-skeleton';
 import { useFormContext } from 'react-hook-form';
 
 type SkillsInformationProps = {

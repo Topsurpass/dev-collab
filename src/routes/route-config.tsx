@@ -18,6 +18,9 @@ import NotificationLayout from '@/pages/notifications';
 import AllNotifications from '@/pages/notifications/all';
 import ProjectUpdatesAlert from '@/pages/notifications/project-updates-alerts';
 import SystemAlerts from '@/pages/notifications/system-alerts';
+import ProfileLayout from '@/pages/profile';
+import Overview from '@/pages/profile/overview';
+import Skills from '@/pages/profile/skills-and-links';
 
 const routeConfig = [
 	{
@@ -141,7 +144,7 @@ const routeConfig = [
 						),
 					},
 					{
-						path: "projects",
+						path: 'projects',
 						element: (
 							<ErrorBoundary>
 								<ProjectUpdatesAlert />
@@ -149,10 +152,36 @@ const routeConfig = [
 						),
 					},
 					{
-						path: "systems",
+						path: 'systems',
 						element: (
 							<ErrorBoundary>
 								<SystemAlerts />
+							</ErrorBoundary>
+						),
+					},
+				],
+			},
+			{
+				path: 'profile',
+				element: (
+					<ErrorBoundary>
+						<ProfileLayout />
+					</ErrorBoundary>
+				),
+				children: [
+					{
+						index: true,
+						element: (
+							<ErrorBoundary>
+								<Overview />
+							</ErrorBoundary>
+						),
+					},
+					{
+						path: 'skills',
+						element: (
+							<ErrorBoundary>
+								<Skills />
 							</ErrorBoundary>
 						),
 					},

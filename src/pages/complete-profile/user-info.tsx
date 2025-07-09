@@ -7,7 +7,7 @@ import EventFileUpload from './profile-pic-upload';
 import useGetRoles from '@/api/roles/use-get-roles';
 import { ReactSelect } from '@/components/ui/forms';
 import useGetProfile from '@/api/profile/use-get-profile';
-import { ProfileFormSkeleton } from '@/components/skeletons/profile-form-skeleton';
+import { ProfileFormSkeleton } from '@/components/skeletons/profile-skeleton';
 
 const initialState = {
 	result: {} as File,

@@ -24,7 +24,7 @@ export const getUnreadNotification = async (requestParams: IParameters = {}) => 
 
 export default function useGetUnreadNotification(requestParams: IParameters = {}) {
 	return useQuery({
-		queryKey: [QueryKeys.GET_UNREAD_NOTIFICATION, requestParams],
+		queryKey: [QueryKeys.GET_NOTIFICATIONS, QueryKeys.GET_UNREAD_NOTIFICATION, requestParams],
 		queryFn: () => getUnreadNotification(requestParams),
 	});
 }

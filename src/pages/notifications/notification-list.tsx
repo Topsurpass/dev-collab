@@ -23,7 +23,7 @@ export function NotificationsList({
 
 	if (filteredNotifications.length === 0) {
 		return (
-			<div className="flex md:mt-44 w-full flex-col items-center justify-center text-center">
+			<div className="flex mt-28 md:mt-44 w-full flex-col items-center justify-center text-center">
 				<img src={EmptyAlert} alt="No Notifications" width={100} />
 				<p className="mt-4 text-sm text-muted-foreground">
 					You&apos;re all caught up! No notifications at the moment.

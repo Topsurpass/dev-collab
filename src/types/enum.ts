@@ -1,4 +1,12 @@
 /* eslint-disable no-unused-vars */
+export const RequestMethod = {
+	POST: 'POST',
+	PUT: 'PUT',
+	PATCH: 'PATCH',
+} as const;
+
+export type RequestMethod = typeof RequestMethod[keyof typeof RequestMethod];
+
 export const EntityType = {
 	PROJECT: "PROJECT",
 } as const;

@@ -61,7 +61,7 @@ export default function ProjectListPage({
 	const mobileFilterItems = getProjectFilterItems(activeFilter, setActiveFilter);
 
 	return (
-		<div className="min-h-screen-minus-100 pb-10">
+		<div className="pb-10">
 			<header className="mb-8">
 				<h1 className="text-2xl font-bold">{title}</h1>
 				<p className="text-sm text-muted-foreground">{description}</p>

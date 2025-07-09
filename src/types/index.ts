@@ -1,4 +1,4 @@
-import { EntityType } from "./enum";
+import { EntityType } from './enum';
 export interface State {
 	isModalOpen: boolean;
 	formData: Record<string, any>;
@@ -8,10 +8,10 @@ export interface State {
 }
 
 export type Action =
-	| { type: "OPEN_MODAL"; payload: EntityType }
-	| { type: "CLOSE_MODAL" }
-	| { type: "SET_EDIT_MODE"; payload: Record<string, any> }
-	| { type: "SET_VIEW_MORE_MODE"; payload: Record<string, any> };
+	| { type: 'OPEN_MODAL'; payload: EntityType }
+	| { type: 'CLOSE_MODAL' }
+	| { type: 'SET_EDIT_MODE'; payload: Record<string, any> }
+	| { type: 'SET_VIEW_MORE_MODE'; payload: Record<string, any> };
 
 export interface IProfilePicFileUpload {
 	file: any;
@@ -20,16 +20,13 @@ export interface IProfilePicFileUpload {
 	error?: { message: string };
 }
 
-export type NotificationType =
-	| "project_added"
-	| "join_request"
-	| "platform_update"
-	| "reminder";
+export type NotificationType = 'project_added' | 'join_request' | 'platform_update' | 'reminder';
 
 export interface Notification {
 	id: number;
 	type: NotificationType;
 	title: string;
-	description: string;
-	time: string;
+	message: string;
+	created_at: string;
+	read: boolean;
 }

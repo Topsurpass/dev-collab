@@ -11,7 +11,13 @@ import ThemeToggleButton from '@/components/theme-toggle';
 import useGetProfile from '@/api/profile/use-get-profile';
 import _ from 'lodash';
 import type { NavigationItem } from '@/data/nav-menu-data';
+import { useNavigate } from 'react-router-dom';
+import useGetUnreadNotification from '@/api/notifications/use-get-unread';
 
+interface NotificationProp {
+	count: number;
+	onClick: () => void;
+}
 function MobileMenuButton({ isOpen, toggle }: { isOpen: boolean; toggle: () => void }) {
 	return (
 		<Button variant="ghost" onClick={toggle} className="md:hidden  pl-2 py-0 pr-0">
@@ -41,14 +47,22 @@ function HelpButton() {
 	);
 }
 
-function NotificationButton() {
+function NotificationButton({ count, onClick }: NotificationProp) {
 	return (
-		<Button variant="ghost" size="icon" className="rounded-full relative cursor-pointer">
+		<Button
+			variant="ghost"
+			size="icon"
+			className="rounded-full relative cursor-pointer"
+			onClick={onClick}
+		>
 			<FiBell className="h-5 w-5" />
-			<span className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-[10px]">
-				3
-			</span>
-			{/*Count notification and on click function props to be added */}
+			{count > 0 ? (
+				<span className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-[10px]">
+					{count}
+				</span>
+			) : (
+				''
+			)}
 		</Button>
 	);
 }
@@ -58,7 +72,9 @@ interface HeaderProps {
 }
 
 export default function ProtectedHeader({ menuData = [] }: HeaderProps) {
+	const { data: Count } = useGetUnreadNotification();
 	const { data } = useGetProfile();
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const user = (data as any)?.data;
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const toggleMobileMenu = () => setMobileMenuOpen(prev => !prev);
@@ -66,6 +82,7 @@ export default function ProtectedHeader({ menuData = [] }: HeaderProps) {
 		_.map(_.words(user?.full_name), word => _.toUpper(word[0])),
 		'',
 	);
+	const navigate = useNavigate();
 
 	return (
 		<header className="fixed top-0 left-0 w-full bg-background z-50 py-4 md:p-4 flex items-center gap-2 md:gap-5 border-b">
@@ -86,7 +103,7 @@ export default function ProtectedHeader({ menuData = [] }: HeaderProps) {
 				/>
 				<ThemeToggleButton />
 				<HelpButton />
-				<NotificationButton />
+				<NotificationButton count={Count?.data?.count} onClick={() => navigate('/notifications')} />
 				<CustomDropdownMenu
 					trigger={
 						<div className="cursor-pointer">

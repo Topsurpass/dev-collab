@@ -14,6 +14,10 @@ import ProtectedLayout from '@/layout/protected-layout';
 import FavoriteProjects from '@/pages/dashboard/favorite-projects.tsx';
 import OngoingProjects from '@/pages/dashboard/ongoing-projects.tsx';
 import NewProject from '@/pages/projects';
+import NotificationLayout from '@/pages/notifications';
+import AllNotifications from '@/pages/notifications/all';
+import ProjectUpdatesAlert from '@/pages/notifications/project-updates-alerts';
+import SystemAlerts from '@/pages/notifications/system-alerts';
 
 const routeConfig = [
 	{
@@ -113,13 +117,47 @@ const routeConfig = [
 				],
 			},
 			{
-				path: "/post-project",
-				element:(
+				path: '/post-project',
+				element: (
 					<ErrorBoundary>
-						<NewProject/>
+						<NewProject />
 					</ErrorBoundary>
-				)
-			}
+				),
+			},
+			{
+				path: 'notifications',
+				element: (
+					<ErrorBoundary>
+						<NotificationLayout />
+					</ErrorBoundary>
+				),
+				children: [
+					{
+						index: true,
+						element: (
+							<ErrorBoundary>
+								<AllNotifications />
+							</ErrorBoundary>
+						),
+					},
+					{
+						path: "projects",
+						element: (
+							<ErrorBoundary>
+								<ProjectUpdatesAlert />
+							</ErrorBoundary>
+						),
+					},
+					{
+						path: "systems",
+						element: (
+							<ErrorBoundary>
+								<SystemAlerts />
+							</ErrorBoundary>
+						),
+					},
+				],
+			},
 		],
 	},
 	{

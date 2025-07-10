@@ -75,8 +75,8 @@ export default function Overview() {
 				label: profileData.experience_level,
 			});
 			setValue('role', {
-				value: profileData.role.id,
-				label: profileData.role.name,
+				value: profileData.role?.id,
+				label: profileData.role?.name,
 			});
 
 			if (profileData.profile_picture_url) {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useMemo } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { ReactSelect } from '@/components/ui/forms';

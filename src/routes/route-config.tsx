@@ -21,6 +21,8 @@ import SystemAlerts from '@/pages/notifications/system-alerts';
 import ProfileLayout from '@/pages/profile';
 import Overview from '@/pages/profile/overview';
 import Skills from '@/pages/profile/skills-and-links';
+import VerifyEmail from '@/pages/verify-email';
+import ProfileProtectedRoute from './profile-protected-route';
 
 const routeConfig = [
 	{
@@ -55,6 +57,10 @@ const routeConfig = [
 					</ErrorBoundary>
 				),
 			},
+			{
+				path: 'verify-email/:token',
+				element: <VerifyEmail />,
+			},
 		],
 	},
 
@@ -80,9 +86,9 @@ const routeConfig = [
 	{
 		path: '/',
 		element: (
-			<ProtectedRoute>
+			<ProfileProtectedRoute>
 				<ProtectedLayout />
-			</ProtectedRoute>
+			</ProfileProtectedRoute>
 		),
 		children: [
 			{

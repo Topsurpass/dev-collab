@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, matchPath } from 'react-router-dom';
 import { useState } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { Button } from '@/components/ui/button';
@@ -58,7 +58,9 @@ export default function Header({ menuData = [] }: HeaderProps) {
 	const toggleMobileMenu = () => setMobileMenuOpen(prev => !prev);
 
 	const location = useLocation();
-	const hideAuthRoutes = ['/login', '/register'].includes(location.pathname);
+	const hideAuthRoutes = ['/login', '/register', '/verify-email/:token'].some(path =>
+		matchPath({ path, end: false }, location.pathname),
+	);
 	const showNav = !hideAuthRoutes && menuData.length > 0;
 
 	return (

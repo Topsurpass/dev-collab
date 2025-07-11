@@ -48,9 +48,8 @@ export default function ProjectCard({
 
 	return (
 		<Card
-			className="hover:shadow-lg transition-shadow duration-300 w-full"
-			onClick={e => {
-				e.stopPropagation();
+			className="hover:shadow-lg transition-shadow duration-300 w-full cursor-pointer"
+			onClick={() => {
 				onclickCard?.(id);
 			}}
 		>

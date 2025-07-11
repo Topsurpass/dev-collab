@@ -67,25 +67,6 @@ const routeConfig = [
 	{
 		path: '/',
 		element: (
-			<ProtectedRoute>
-				<NoHeaderLayout />
-			</ProtectedRoute>
-		),
-		children: [
-			{
-				path: 'create-profile',
-				element: (
-					<ErrorBoundary>
-						<CompleteProfile />
-					</ErrorBoundary>
-				),
-			},
-		],
-	},
-
-	{
-		path: '/',
-		element: (
 			<ProfileProtectedRoute>
 				<ProtectedLayout />
 			</ProfileProtectedRoute>
@@ -195,6 +176,26 @@ const routeConfig = [
 			},
 		],
 	},
+
+	{
+		path: '/',
+		element: (
+			<ProtectedRoute>
+				<NoHeaderLayout />
+			</ProtectedRoute>
+		),
+		children: [
+			{
+				path: 'create-profile',
+				element: (
+					<ErrorBoundary>
+						<CompleteProfile />
+					</ErrorBoundary>
+				),
+			},
+		],
+	},
+
 	{
 		path: '*',
 		element: <NotFoundPage />,

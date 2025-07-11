@@ -8,6 +8,7 @@ import { CustomDropdownMenu } from '@/components/dropdown';
 import { getProjectFilterItems } from '@/data/nav-menu-data';
 import Empty from '@/components/empty';
 import { FaProjectDiagram } from 'react-icons/fa';
+import ProjectSheet from './project-sheet';
 
 const PROJECTS_PER_PAGE = 10;
 
@@ -40,6 +41,24 @@ export default function ProjectListPage({
 	const [displayCount, setDisplayCount] = useState(PROJECTS_PER_PAGE);
 	const [activeFilter, setActiveFilter] = useState(defaultStatusFilter);
 	const [searchQuery, setSearchQuery] = useState('');
+	const [selectedProject, setSelectedProject] = useState<ProjectCardProps | null>(null);
+	const [isSheetOpen, setIsSheetOpen] = useState(false);
+	const [isApplying, setIsApplying] = useState(false);
+
+	const handleProjectClick = (id: number) => {
+		const project = projects.find(p => p.id === id);
+		if (project) {
+			setSelectedProject(project);
+			setIsSheetOpen(true);
+		}
+	};
+
+	const handleJoinRequest = async () => {
+		if (!selectedProject) return;
+
+		setIsApplying(true);
+		console.log(selectedProject.id);
+	};
 
 	const filteredProjects = projects.filter(project => {
 		const matchesSearch =
@@ -98,8 +117,9 @@ export default function ProjectListPage({
 								variant={activeFilter === status ? 'primary' : 'outline'}
 								onClick={() => setActiveFilter(status)}
 								className="capitalize text-xs px-2 md:px-4 py-0"
-								label={statusLabels[status] || status}
-							/>
+							>
+								{statusLabels[status] || status}
+							</Button>
 						))}
 					</div>
 				</div>
@@ -109,12 +129,19 @@ export default function ProjectListPage({
 					(loadingComponent ?? null)
 				) : visibleProjects.length > 0 ? (
 					<>
+						<ProjectSheet
+							project={selectedProject}
+							open={isSheetOpen}
+							onOpenChange={setIsSheetOpen}
+							onJoinRequest={handleJoinRequest}
+							isLoading={isApplying}
+						/>
 						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 							{visibleProjects.map(project => (
 								<ProjectCard
 									key={project.id}
 									{...project}
-									onclickCard={id => console.log('Clicked project', id)}
+									onclickCard={() => handleProjectClick(project.id)}
 									onclickFavorite={id => console.log('Favorited project', id)}
 								/>
 							))}
@@ -122,12 +149,9 @@ export default function ProjectListPage({
 
 						{hasMoreProjects && (
 							<div className="mt-5 text-center">
-								<Button
-									onClick={loadMore}
-									className="text-base"
-									variant="primary"
-									label="Load More"
-								/>
+								<Button onClick={loadMore} className="text-base" variant="primary">
+									Load More
+								</Button>
 							</div>
 						)}
 					</>

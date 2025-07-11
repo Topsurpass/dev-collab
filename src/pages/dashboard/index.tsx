@@ -2,14 +2,14 @@ import { NavLink, Outlet } from 'react-router-dom';
 
 const tabs = [
 	{ path: '', label: 'All projects' },
-	{ path: 'favorite-projects', label: 'Favorite projects' },
-	{ path: 'ongoing-projects', label: 'Ongoing projects' },
+	{ path: 'favorite-projects', label: 'Favorite' },
+	{ path: 'ongoing-projects', label: 'Ongoing' },
 ];
 
 export default function DashBoardLayout() {
 	return (
-		<div className="mx-auto w-full px-5 md:max-w-7xl">
-			<div className="my-2 md:mb-5 flex gap-4 pb-0">
+		<div className="mx-auto w-full px-5 md:max-w-7xl ">
+			<div className="my-2 md:mb-5 flex gap-4 pb-0 flex-wrap">
 				{tabs.map(tab => (
 					<NavLink
 						key={tab.path}

@@ -2,6 +2,7 @@ import ReusableSheet from '@/components/sheet';
 import { Button } from '@/components/ui/button';
 import type { ProjectCardProps } from '@/types/project-list-types';
 import { Card, CardContent, CardDescription, CardFooter, CardTitle } from '@/components/ui/card';
+import EmptyAlert from '@/assets/empty-alert-pic.svg';
 
 interface ProjectSheetProps {
 	project: ProjectCardProps | null;
@@ -76,7 +77,15 @@ const TeamMembersSection = ({ members }: { members: ProjectCardProps['team_membe
 	<div>
 		<p className="font-bold">Team Members</p>
 		{members.length === 0 ? (
-			<CardDescription className="text-gray-500 italic">No team members yet</CardDescription>
+			<div className="flex mt-5 md:mt-10 w-full flex-col items-center justify-center text-center">
+				<img src={EmptyAlert} alt="No Notifications" width={80} />
+				<p className="mt-4 text-sm text-muted-foreground">
+					No team member on this project yet.
+				</p>
+				<p className="text-sm text-muted-foreground">
+					Become the first. Send a request to join!
+				</p>
+			</div>
 		) : (
 			<div className="flex flex-col flex-wrap gap-3 mt-2">
 				{members.map(member => (

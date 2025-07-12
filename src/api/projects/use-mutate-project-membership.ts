@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import AuthHTTP from '@/lib/http-client';
@@ -5,7 +6,7 @@ import AuthHTTP from '@/lib/http-client';
 type RequestPayload = {
 	user: string;
 	project: number;
-	role_id: number;
+	role_id: number | undefined;
 };
 
 export default function useProjectMembership() {

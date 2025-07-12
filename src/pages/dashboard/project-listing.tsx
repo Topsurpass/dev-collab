@@ -32,6 +32,14 @@ interface ProjectListPageProps {
 	isLoading?: boolean;
 	loadingComponent?: React.ReactNode;
 }
+	// Define the expected profile data type
+	type ProfileData = {
+		data?: {
+			role?: {
+				id?: number;
+			};
+		};
+	};
 
 export default function ProjectListPage({
 	title,
@@ -47,8 +55,10 @@ export default function ProjectListPage({
 	const [selectedProject, setSelectedProject] = useState<ProjectCardProps | null>(null);
 	const [isSheetOpen, setIsSheetOpen] = useState(false);
 	const userId = useAuthStore(state => state.id);
-	const { data } = useGetProfile();
+
+	const { data } = useGetProfile() as { data?: ProfileData };
 	const { mutateAsync: mutateMembership, isPending } = useProjectMembership();
+	const roleId = data?.data?.role?.id
 
 	const handleProjectClick = (id: number) => {
 		const project = projects.find(p => p.id === id);
@@ -65,7 +75,7 @@ export default function ProjectListPage({
 		const requestPayload = {
 			user: userId,
 			project: selectedProject.id,
-			role_id: data?.data?.role.id,
+			role_id: roleId,
 		};
 		mutateMembership(requestPayload);
 	};

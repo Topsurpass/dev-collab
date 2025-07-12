@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Mail, AlertCircle } from 'lucide-react';
 import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
@@ -106,7 +107,7 @@ export default function LoginForm() {
 							/>
 							<div>
 								<p>
-									Dont't have an account?{' '}
+									Dont&apos;t have an account?{' '}
 									<Link to="/register" className="text-royal hover:underline">
 										Create an Account
 									</Link>

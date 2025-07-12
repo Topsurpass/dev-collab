@@ -9,6 +9,9 @@ import { getProjectFilterItems } from '@/data/nav-menu-data';
 import Empty from '@/components/empty';
 import { FaProjectDiagram } from 'react-icons/fa';
 import ProjectSheet from './project-sheet';
+import useProjectMembership from '@/api/projects/use-mutate-project-membership';
+import useAuthStore from '@/stores/user-store';
+import useGetProfile from '@/api/profile/use-get-profile';
 
 const PROJECTS_PER_PAGE = 10;
 
@@ -43,7 +46,9 @@ export default function ProjectListPage({
 	const [searchQuery, setSearchQuery] = useState('');
 	const [selectedProject, setSelectedProject] = useState<ProjectCardProps | null>(null);
 	const [isSheetOpen, setIsSheetOpen] = useState(false);
-	const [isApplying, setIsApplying] = useState(false);
+	const userId = useAuthStore(state => state.id);
+	const { data } = useGetProfile();
+	const { mutateAsync: mutateMembership, isPending } = useProjectMembership();
 
 	const handleProjectClick = (id: number) => {
 		const project = projects.find(p => p.id === id);
@@ -53,11 +58,16 @@ export default function ProjectListPage({
 		}
 	};
 
-	const handleJoinRequest = async () => {
-		if (!selectedProject) return;
-
-		setIsApplying(true);
-		console.log(selectedProject.id);
+	const handleJoinRequest = () => {
+		if (!selectedProject || !userId || !data) {
+			return;
+		}
+		const requestPayload = {
+			user: userId,
+			project: selectedProject.id,
+			role_id: data?.data?.role.id,
+		};
+		mutateMembership(requestPayload);
 	};
 
 	const filteredProjects = projects.filter(project => {
@@ -78,7 +88,6 @@ export default function ProjectListPage({
 	const loadMore = () => setDisplayCount(prev => prev + PROJECTS_PER_PAGE);
 
 	const mobileFilterItems = getProjectFilterItems(activeFilter, setActiveFilter);
-
 	return (
 		<div className="pb-10">
 			<header className="mb-8">
@@ -134,7 +143,7 @@ export default function ProjectListPage({
 							open={isSheetOpen}
 							onOpenChange={setIsSheetOpen}
 							onJoinRequest={handleJoinRequest}
-							isLoading={isApplying}
+							isLoading={isPending}
 						/>
 						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 							{visibleProjects.map(project => (

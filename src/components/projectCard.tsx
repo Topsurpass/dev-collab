@@ -6,13 +6,13 @@ import {
 	CardDescription,
 	CardFooter,
 } from '@/components/ui/card';
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { GrFavorite } from 'react-icons/gr';
 import { Badge } from '@/components/ui/badge';
 import _ from 'lodash';
 import type { ProjectCardProps } from '@/types/project-list-types';
 import { StatusColor } from '@/types/enum';
-import { FaUserAlt, FaTools } from 'react-icons/fa';
+import { Button } from './ui/button';
 
 interface ProjectCardFullProps extends ProjectCardProps {
 	onclickCard?: (id: number) => void;
@@ -39,26 +39,24 @@ export default function ProjectCard({
 	const shouldTruncate = description.length > descriptionLimit;
 	const shortDescription = description.slice(0, descriptionLimit);
 
-	const allSkills = useMemo(() => {
-		const skills = required_roles.flatMap(role =>
-			role.required_skills.map(skill => skill.skill_name),
-		);
-		return Array.from(new Set(skills));
-	}, [required_roles]);
-
 	return (
-		<Card
-			className="hover:shadow-lg transition-shadow duration-300 w-full cursor-pointer"
-			onClick={() => {
-				onclickCard?.(id);
-			}}
-		>
+		<Card className="hover:shadow-lg transition-shadow duration-300 w-full">
 			<CardHeader>
 				<div className="flex justify-between items-start gap-5">
-					<CardTitle className="text-lg font-normal">{title}</CardTitle>
-					<Badge className={StatusColor[status as keyof typeof StatusColor]}>
-						{_.capitalize(status)}
-					</Badge>
+					<div>
+						<CardTitle className="text-lg font-normal">{title}</CardTitle>
+						<Badge className={StatusColor[status as keyof typeof StatusColor]}>
+							{_.capitalize(status)}
+						</Badge>
+					</div>
+
+					<GrFavorite
+						className="cursor-pointer text-gray-500 hover:text-red-500"
+						onClick={e => {
+							e.stopPropagation();
+							onclickFavorite?.(id);
+						}}
+					/>
 				</div>
 
 				<CardDescription className="text-sm">
@@ -69,7 +67,7 @@ export default function ProjectCard({
 								e.stopPropagation();
 								toggleDescription();
 							}}
-							className="ml-1 text-blue-600 dark:text-green-500 cursor-pointer underline text-xs"
+							className="ml-1 text-blue-600 dark:text-green-500 cursor-pointer underline text-sm"
 						>
 							{expanded ? 'less' : 'more'}
 						</span>
@@ -77,49 +75,17 @@ export default function ProjectCard({
 				</CardDescription>
 			</CardHeader>
 
-			<CardContent className="grid gap-4">
+			<CardContent className="grid">
 				<div>
-					<div className="flex items-center justify-between mb-1">
-						<h3 className="text-sm font-medium flex items-center gap-2">
-							<FaUserAlt className="" />
-							Roles Needed
+					<div className="flex items-center justify-between">
+						<h3 className="text-sm font-medium flex items-center">
+							Looking For
 						</h3>
 					</div>
-
-					<div className="flex flex-wrap gap-2">
-						{required_roles.map(role => (
-							<div key={role.id} className="h-3">
-								<div className="flex justify-between items-center">
-									<span className="font-medium text-sm text-gray-500 dark:text-gray-400">{role.role_name}</span>
-								</div>
-							</div>
-						))}
-					</div>
-				</div>
-
-				<div>
-					<div className="flex items-center justify-between mb-1">
-						<h3 className="text-sm font-medium flex items-center gap-2">
-							<FaTools className="" />
-							Required Skills
-						</h3>
-					</div>
-
-					<div className="flex flex-wrap gap-2">
-						{allSkills.length > 0 ? (
-							allSkills.map((skill, index) => (
-								<span
-									key={index}
-									className="inline-flex items-center px-2 rounded-full text-xs font-medium bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200"
-								>
-									{skill}
-								</span>
-							))
-						) : (
-							<span className="text-xs text-gray-500 italic">
-								No specific skills required
-							</span>
-						)}
+					<div>
+						<span className="font-medium text-sm text-gray-500 dark:text-gray-400">
+							{required_roles.map(role => role.role_name).join(', ')}
+						</span>
 					</div>
 				</div>
 			</CardContent>
@@ -145,16 +111,13 @@ export default function ProjectCard({
 							</div>
 						)}
 					</div>
-					<span className="text-xs text-gray-500 dark:text-gray-400">
-						{team_members.length} joined
-					</span>
 				</div>
 
-				<GrFavorite
-					className="cursor-pointer text-gray-500 hover:text-red-500"
-					onClick={e => {
-						e.stopPropagation();
-						onclickFavorite?.(id);
+				<Button
+					label="View details"
+					className="rounded-3xl py-0 my-0 text-xs cursor-pointer"
+					onClick={() => {
+						onclickCard?.(id);
 					}}
 				/>
 			</CardFooter>

@@ -14,7 +14,7 @@ export interface RequiredRole {
 
 export interface Member {
 	id: string;
-	use_id: number;
+	user_id: number;
 	project_id: number;
 	profile_picture_url: string;
 	role_id: number

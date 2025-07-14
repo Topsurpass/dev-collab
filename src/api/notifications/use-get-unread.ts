@@ -6,7 +6,7 @@ interface IParameters {
 	[key: string]: unknown;
 }
 
-const url = '/api/v1/notifications/unread_count';
+const url = '/api/v1/notifications/unread-count';
 
 export const getUnreadNotification = async (requestParams: IParameters = {}) => {
 	try {

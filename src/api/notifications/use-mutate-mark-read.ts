@@ -4,7 +4,7 @@ import AuthHTTP from "@/lib/http-client";
 import { RequestMethod } from "@/types/enum";
 
 interface IProps {
-	requestPayload: any;
+	requestPayload?: any;
 	msgId?: number;
 	requestMethod: RequestMethod;
 }
@@ -21,7 +21,10 @@ export default function useMarkNotificationRead() {
 					res = await AuthHTTP.post(url, requestPayload);
 				}
 				if (requestMethod === RequestMethod.PATCH) {
-					res = await AuthHTTP.patch(`${url}/${msgId}/mark_read/`, requestPayload);
+					res = await AuthHTTP.patch(`${url}/${msgId}/mark-read/`, requestPayload);
+				}
+				if (requestMethod === RequestMethod.DELETE) {
+					res = await AuthHTTP.delete(`${url}/${msgId}/`);
 				}
 				return res;
 			} catch (error) {

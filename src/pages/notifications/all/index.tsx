@@ -26,6 +26,16 @@ export default function AllNotifications() {
 			queryKey: [QueryKeys.GET_NOTIFICATIONS],
 		});
 	};
+	const deleteNotification = async (id: number) => {
+		await mutateNotification({
+			requestMethod: RequestMethod.DELETE,
+			msgId: id,
+		});
+
+		queryClient.invalidateQueries({
+			queryKey: [QueryKeys.GET_NOTIFICATIONS],
+		});
+	};
 
 	return (
 		<>
@@ -38,7 +48,7 @@ export default function AllNotifications() {
 			) : (
 				<NotificationsList
 					notifications={NotificationsData}
-					onDelete={id => console.log('Delete', id)}
+					onDelete={id => deleteNotification(id)}
 					onAction={(action, notif) => console.log(action, notif)}
 					onRead={id => processForm(id)}
 				/>

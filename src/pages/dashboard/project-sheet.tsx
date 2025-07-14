@@ -98,7 +98,14 @@ const TeamMembersSection = ({ members }: { members: ProjectCardProps['team_membe
 							alt={member.profile_picture_url}
 							className="w-8 h-8 rounded-full object-cover"
 						/>
-						<span className="text-sm text-muted-foreground">{member.status}</span>
+						<div>
+							<p className="text-sm text-muted-foreground">
+								{member.full_name}
+							</p>
+							<p className="text-xs text-muted-foreground">
+								{member.role_name}
+							</p>
+						</div>
 					</div>
 				))}
 			</div>

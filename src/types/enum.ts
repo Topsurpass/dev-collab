@@ -3,6 +3,7 @@ export const RequestMethod = {
 	POST: 'POST',
 	PUT: 'PUT',
 	PATCH: 'PATCH',
+	DELETE: 'DELETE',
 } as const;
 
 export type RequestMethod = typeof RequestMethod[keyof typeof RequestMethod];

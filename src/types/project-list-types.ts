@@ -14,12 +14,14 @@ export interface RequiredRole {
 
 export interface Member {
 	id: string;
-	user: number;
-	project: number;
+	use_id: number;
+	project_id: number;
 	profile_picture_url: string;
 	role_id: number
 	status: string;
-	joined_id: string;
+	full_name: string;
+	role_name: string;
+	joined_at: string;
 }
 
 export interface ProjectCardProps {

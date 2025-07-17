@@ -8,7 +8,7 @@ const tabs = [
 
 export default function DashBoardLayout() {
 	return (
-		<div className="mx-auto w-full px-5 md:max-w-7xl ">
+		<div className="mx-auto w-ful px-3 md:px-3 md:max-w-7xl ">
 			<div className="my-2 md:mb-5 flex gap-4 pb-0 flex-wrap">
 				{tabs.map(tab => (
 					<NavLink

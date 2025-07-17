@@ -1,10 +1,14 @@
 import ProjectListPage from '../project-listing';
-import useGetProjects from '@/api/projects/use-get-projects';
+import useGetFavoriteProjects from '@/api/projects/use-get-favorites';
 import { ProjectLoadingSkeleton } from '@/components/skeletons/projectLoading-skeleton';
 import { ErrorDisplay } from '@/components/errorDisplay';
 
 export default function FavoriteProjects() {
-	const { data: projectData, isLoading, isError, error, refetch } = useGetProjects();
+	const { data: projectData, isLoading, isError, error, refetch } = useGetFavoriteProjects();
+
+	function toggleFavorite(id: number) {
+		console.log(id);
+	}
 
 	if (isError) {
 		return (
@@ -17,6 +21,7 @@ export default function FavoriteProjects() {
 			</div>
 		);
 	}
+	console.log(projectData);
 
 	return (
 		<ProjectListPage
@@ -25,6 +30,7 @@ export default function FavoriteProjects() {
 			projects={projectData ?? []}
 			isLoading={isLoading}
 			loadingComponent={<ProjectLoadingSkeleton length={6} />}
+			onClickFavorite={toggleFavorite}
 		/>
 	);
 }

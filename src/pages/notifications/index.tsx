@@ -8,7 +8,7 @@ const tabs = [
 
 export default function NotificationLayout() {
 	return (
-		<div className="mx-auto w-full px-5 md:max-w-7xl">
+		<div className="mx-auto w-full px-3 md:px-2 md:max-w-7xl">
 			<div className="m-2 flex gap-4 pb-0">
 				{tabs.map(tab => (
 					<NavLink

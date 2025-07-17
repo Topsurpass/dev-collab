@@ -2,9 +2,18 @@ import ProjectListPage from '../project-listing';
 import useGetProjects from '@/api/projects/use-get-projects';
 import { ProjectLoadingSkeleton } from '@/components/skeletons/projectLoading-skeleton';
 import { ErrorDisplay } from '@/components/errorDisplay';
+import useProjectFavorite from '@/api/projects/use-mutate-favorite';
 
 export default function AllProjects() {
 	const { data: projectData, isLoading, isError, error, refetch } = useGetProjects();
+	const { mutate: addFavoriteProject } = useProjectFavorite();
+
+	function toggleFavorite(id: number) {
+		const requestPayload = {
+			project: id,
+		};
+		addFavoriteProject(requestPayload);
+	}
 
 	if (isError) {
 		return (
@@ -17,7 +26,7 @@ export default function AllProjects() {
 			</div>
 		);
 	}
-
+console.log(projectData);
 	return (
 		<ProjectListPage
 			title="Project Dashboard"
@@ -25,6 +34,7 @@ export default function AllProjects() {
 			projects={projectData ?? []}
 			isLoading={isLoading}
 			loadingComponent={<ProjectLoadingSkeleton length={6} />}
+			onClickFavorite={toggleFavorite}
 		/>
 	);
 }

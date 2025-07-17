@@ -30,6 +30,7 @@ export interface ProjectCardProps {
 	description: string;
 	status: ProjectStatus;
 	owner: number;
+	is_favorited: boolean;
 	created_at: string;
 	updated_at: string;
 	required_roles: RequiredRole[];

@@ -1,16 +1,18 @@
 import { Outlet } from 'react-router-dom';
 import ProtectedHeader from '@/components/protected-header';
 import ScrollToTop from '@/components/scrollToTop';
-import { ProtectedNavigationMenuData } from '@/data/nav-menu-data';
+import { SidebarProvider } from '@/components/ui/sidebar';
+import { AppSidebar } from '@/components/sidebar';
 
 export default function ProtectedLayout() {
 	return (
-		<div className="min-h-screen flex flex-col">
+		<SidebarProvider>
+			<AppSidebar />
 			<ScrollToTop />
-			<ProtectedHeader menuData={ProtectedNavigationMenuData} />
-			<main className="pt-[80px] flex-1">
+			<main className="w-full">
+				<ProtectedHeader />
 				<Outlet />
 			</main>
-		</div>
+		</SidebarProvider>
 	);
 }

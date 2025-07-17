@@ -7,12 +7,13 @@ import {
 	CardFooter,
 } from '@/components/ui/card';
 import { useState } from 'react';
-import { GrFavorite } from 'react-icons/gr';
 import { Badge } from '@/components/ui/badge';
 import _ from 'lodash';
 import type { ProjectCardProps } from '@/types/project-list-types';
 import { StatusColor } from '@/types/enum';
 import { Button } from './ui/button';
+import { cn } from '@/lib/utils';
+import { MdFavorite } from 'react-icons/md';
 
 interface ProjectCardFullProps extends ProjectCardProps {
 	onclickCard?: (id: number) => void;
@@ -26,13 +27,14 @@ export default function ProjectCard({
 	status,
 	required_roles,
 	team_members,
+	is_favorited,
 	onclickCard,
 	onclickFavorite,
 }: ProjectCardFullProps) {
 	const [expanded, setExpanded] = useState(false);
 
-	const visibleMembers = team_members.slice(0, 4);
-	const extraMembers = team_members.length - visibleMembers.length;
+	const visibleMembers = team_members?.slice(0, 4);
+	const extraMembers = team_members?.length - visibleMembers?.length;
 
 	const toggleDescription = () => setExpanded(prev => !prev);
 	const descriptionLimit = 100;
@@ -40,8 +42,8 @@ export default function ProjectCard({
 	const shortDescription = description.slice(0, descriptionLimit);
 
 	return (
-		<Card className="hover:shadow-lg transition-shadow duration-300 w-full">
-			<CardHeader>
+		<Card className="hover:shadow-lg transition-shadow duration-300 w-full py-3 gap-3">
+			<CardHeader className="px-3">
 				<div className="flex justify-between items-start gap-5">
 					<div>
 						<CardTitle className="text-lg font-normal">{title}</CardTitle>
@@ -50,8 +52,10 @@ export default function ProjectCard({
 						</Badge>
 					</div>
 
-					<GrFavorite
-						className="cursor-pointer text-gray-500 hover:text-red-500"
+					<MdFavorite
+						className={cn('cursor-pointer text-gray-500 hover:text-red-500', {
+							'text-red-500': is_favorited,
+						})}
 						onClick={e => {
 							e.stopPropagation();
 							onclickFavorite?.(id);
@@ -75,16 +79,14 @@ export default function ProjectCard({
 				</CardDescription>
 			</CardHeader>
 
-			<CardContent className="grid">
+			<CardContent className="grid px-0 mx-3">
 				<div>
 					<div className="flex items-center justify-between">
-						<h3 className="text-sm font-medium flex items-center">
-							Looking For
-						</h3>
+						<h3 className="text-sm font-medium flex items-center">Looking For</h3>
 					</div>
 					<div>
 						<span className="font-medium text-sm text-gray-500 dark:text-gray-400">
-							{required_roles.map(role => role.role_name).join(', ')}
+							{required_roles?.map(role => role.role_name).join(', ')}
 						</span>
 					</div>
 				</div>
@@ -93,7 +95,7 @@ export default function ProjectCard({
 			<CardFooter className="flex justify-between items-center">
 				<div className="flex items-center gap-2">
 					<div className="flex -space-x-2">
-						{team_members.length > 0 ? (
+						{team_members?.length > 0 ? (
 							visibleMembers.map((member, idx) => (
 								<img
 									key={idx}

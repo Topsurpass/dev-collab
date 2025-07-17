@@ -26,6 +26,17 @@ export default function ProjectUpdatesAlert() {
 			queryKey: [QueryKeys.GET_NOTIFICATIONS],
 		});
 	};
+
+	const deleteNotification = async (id: number) => {
+		await mutateNotification({
+			requestMethod: RequestMethod.DELETE,
+			msgId: id,
+		});
+
+		queryClient.invalidateQueries({
+			queryKey: [QueryKeys.GET_NOTIFICATIONS],
+		});
+	};
 	return (
 		<>
 			{isLoading ? (
@@ -36,14 +47,14 @@ export default function ProjectUpdatesAlert() {
 				</div>
 			) : (
 				<NotificationsList
-					notifications={NotificationsData}
+					notifications={NotificationsData?.data}
 					filterTypes={[
 						'project_update',
 						'join_request',
 						'request_accepted',
 						'request_rejected',
 					]}
-					onDelete={id => console.log('Delete', id)}
+					onDelete={id => deleteNotification(id)}
 					onAction={(action, notif) => console.log(action, notif)}
 					onRead={id => processForm(id)}
 				/>

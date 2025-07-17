@@ -26,6 +26,18 @@ export default function SystemAlerts() {
 			queryKey: [QueryKeys.GET_NOTIFICATIONS],
 		});
 	};
+	
+	const deleteNotification = async (id: number) => {
+		await mutateNotification({
+			requestMethod: RequestMethod.DELETE,
+			msgId: id,
+		});
+
+		queryClient.invalidateQueries({
+			queryKey: [QueryKeys.GET_NOTIFICATIONS],
+		});
+	};
+
 	return (
 		<>
 			{isLoading ? (
@@ -36,9 +48,9 @@ export default function SystemAlerts() {
 				</div>
 			) : (
 				<NotificationsList
-					notifications={NotificationsData}
+					notifications={NotificationsData?.data}
 					filterTypes={['system_update']}
-					onDelete={id => console.log('Delete', id)}
+					onDelete={id => deleteNotification(id)}
 					onAction={(action, notif) => console.log(action, notif)}
 					onRead={id => processForm(id)}
 				/>

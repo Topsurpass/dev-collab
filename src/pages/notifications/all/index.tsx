@@ -36,7 +36,6 @@ export default function AllNotifications() {
 			queryKey: [QueryKeys.GET_NOTIFICATIONS],
 		});
 	};
-
 	return (
 		<>
 			{isLoading ? (
@@ -47,7 +46,7 @@ export default function AllNotifications() {
 				</div>
 			) : (
 				<NotificationsList
-					notifications={NotificationsData}
+					notifications={NotificationsData?.data}
 					onDelete={id => deleteNotification(id)}
 					onAction={(action, notif) => console.log(action, notif)}
 					onRead={id => processForm(id)}

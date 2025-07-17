@@ -1,12 +1,12 @@
-import { useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
-import { useFormContext } from "react-hook-form";
-import { X, PlusCircle, Trash2, AlertCircle } from "lucide-react";
-import { TextField, TextArea } from "@/components/ui/forms";
-import { Button } from "@/components/ui/button";
-import useGlobalProvider from "@/hooks/use-global-provider";
-import { EntityType } from "@/types/enum";
-import SkillsModal from "./skills-modal";
+import { useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useFormContext } from 'react-hook-form';
+import { X, PlusCircle, Trash2, AlertCircle } from 'lucide-react';
+import { TextField, TextArea } from '@/components/ui/forms';
+import { Button } from '@/components/ui/button';
+import useGlobalProvider from '@/hooks/use-global-provider';
+import { EntityType } from '@/types/enum';
+import SkillsModal from './skills-modal';
 
 type handleSubmitProps = {
 	handleSubmit: () => void;
@@ -17,42 +17,42 @@ export default function CreateNewProject({ handleSubmit, isLoading }: handleSubm
 	const { onModalOpen } = useGlobalProvider();
 	const { control, watch, setValue, trigger, formState } = useFormContext();
 	const navigate = useNavigate();
-	const roles = watch("roles", []) as { role: string; skills: { label: string }[] }[];
+	const roles = watch('roles', []) as { role: string; skills: { label: string }[] }[];
 	const [, setActiveRoleIndex] = useState<number | null>(null);
-	const [roleInput, setRoleInput] = useState("");
+	const [roleInput, setRoleInput] = useState('');
 	const { errors } = formState;
 	const handleAddRole = useCallback(() => {
 		if (roleInput.trim()) {
 			const updatedRoles = [
 				...roles,
-				{ role: roleInput.trim(), skills: [], number_required: "1" },
+				{ role: roleInput.trim(), skills: [], number_required: '1' },
 			];
-			setValue("roles", updatedRoles);
-			trigger("roles");
-			setRoleInput("");
+			setValue('roles', updatedRoles);
+			trigger('roles');
+			setRoleInput('');
 		}
 	}, [roleInput, roles, setValue, trigger]);
 
 	const handleRemoveRole = useCallback(
 		(indexToRemove: number) => {
 			const updatedRoles = roles.filter((_, i) => i !== indexToRemove);
-			setValue("roles", updatedRoles);
-			trigger("roles");
+			setValue('roles', updatedRoles);
+			trigger('roles');
 			trigger(`roles.${indexToRemove}.number_required`);
 		},
-		[roles, setValue, trigger]
+		[roles, setValue, trigger],
 	);
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if (e.key === "Enter") {
+		if (e.key === 'Enter') {
 			e.preventDefault();
 			handleAddRole();
 		}
 	};
 
 	return (
-		<div className="md:mt-8 mx-auto w-full px-5 md:max-w-7xl">
-			<div className="flex items-center justify-between rounded-2xl md:px-8">
+		<div className="md:mt-5 mx-auto w-full md:max-w-7xl">
+			<div className="flex items-center justify-between rounded-2xl px-3">
 				<header className="mb-8">
 					<h1 className="text-2xl font-bold">Create New Project</h1>
 					<p className="text-sm text-muted-foreground">
@@ -67,7 +67,7 @@ export default function CreateNewProject({ handleSubmit, isLoading }: handleSubm
 				</button>
 			</div>
 
-			<div className="mt-8 grid gap-8 rounded-2xl p-3  md:grid-cols-2 md:p-8">
+			<div className="grid gap-8 rounded-2xl p-3  md:grid-cols-2 md:p-3">
 				<div className="space-y-6 md:pr-8">
 					<div className="mb-6 rounded-xl bg-gradient-to-r from-blue-900 to-blue-500 px-6 py-4">
 						<h3 className="text-sm font-semibold uppercase tracking-wide text-white">

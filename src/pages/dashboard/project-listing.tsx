@@ -7,11 +7,11 @@ import type { ProjectCardProps } from '@/types/project-list-types';
 import { CustomDropdownMenu } from '@/components/dropdown';
 import { getProjectFilterItems } from '@/data/nav-menu-data';
 import Empty from '@/components/empty';
-import { FaProjectDiagram } from 'react-icons/fa';
 import ProjectSheet from './project-sheet';
 import useProjectMembership from '@/api/projects/use-mutate-project-membership';
 import useAuthStore from '@/stores/user-store';
 import useGetProfile from '@/api/profile/use-get-profile';
+import { LiaProjectDiagramSolid } from 'react-icons/lia';
 
 const PROJECTS_PER_PAGE = 10;
 
@@ -30,16 +30,18 @@ interface ProjectListPageProps {
 	projects: ProjectCardProps[];
 	defaultStatusFilter?: string;
 	isLoading?: boolean;
+	is_favorited?: boolean;
 	loadingComponent?: React.ReactNode;
+	onClickFavorite: (id: number) => void;
 }
-	// Define the expected profile data type
-	type ProfileData = {
-		data?: {
-			role?: {
-				id?: number;
-			};
+// Define the expected profile data type
+type ProfileData = {
+	data?: {
+		role?: {
+			id?: number;
 		};
 	};
+};
 
 export default function ProjectListPage({
 	title,
@@ -48,6 +50,7 @@ export default function ProjectListPage({
 	defaultStatusFilter = 'all',
 	isLoading,
 	loadingComponent,
+	onClickFavorite,
 }: ProjectListPageProps) {
 	const [displayCount, setDisplayCount] = useState(PROJECTS_PER_PAGE);
 	const [activeFilter, setActiveFilter] = useState(defaultStatusFilter);
@@ -58,10 +61,10 @@ export default function ProjectListPage({
 
 	const { data } = useGetProfile() as { data?: ProfileData };
 	const { mutateAsync: mutateMembership, isPending } = useProjectMembership();
-	const roleId = data?.data?.role?.id
+	const roleId = data?.data?.role?.id;
 
 	const handleProjectClick = (id: number) => {
-		const project = projects.find(p => p.id === id);
+		const project = projects?.find(p => p.id === id);
 		if (project) {
 			setSelectedProject(project);
 			setIsSheetOpen(true);
@@ -80,17 +83,17 @@ export default function ProjectListPage({
 		mutateMembership(requestPayload);
 	};
 
-	const filteredProjects = projects.filter(project => {
+	const filteredProjects = projects?.filter(project => {
 		const matchesSearch =
-			project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-			project.description.toLowerCase().includes(searchQuery.toLowerCase());
+			project?.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+			project?.description?.toLowerCase().includes(searchQuery.toLowerCase());
 
 		const matchesFilter = activeFilter === 'all' || project.status === activeFilter;
 
 		return matchesSearch && matchesFilter;
 	});
 
-	const visibleProjects = filteredProjects.slice(0, displayCount);
+	const visibleProjects = filteredProjects?.slice(0, displayCount);
 	const hasMoreProjects = displayCount < filteredProjects.length;
 
 	const statuses = ['all', ...new Set(projects.map(p => p.status))];
@@ -130,9 +133,9 @@ export default function ProjectListPage({
 					</div>
 
 					<div className="hidden md:flex flex-wrap gap-2">
-						{statuses.map(status => (
+						{statuses.map((status, idx) => (
 							<Button
-								key={status}
+								key={idx}
 								variant={activeFilter === status ? 'primary' : 'outline'}
 								onClick={() => setActiveFilter(status)}
 								className="capitalize text-xs px-2 md:px-4 py-0"
@@ -161,7 +164,8 @@ export default function ProjectListPage({
 									key={project.id}
 									{...project}
 									onclickCard={() => handleProjectClick(project.id)}
-									onclickFavorite={id => console.log('Favorited project', id)}
+									onclickFavorite={id => onClickFavorite(id)}
+									is_favorited={project.is_favorited}
 								/>
 							))}
 						</div>
@@ -178,7 +182,7 @@ export default function ProjectListPage({
 					<Empty
 						title="No projects found"
 						description="Try adjusting your search or filter criteria"
-						Icon={FaProjectDiagram}
+						Icon={LiaProjectDiagramSolid}
 					/>
 				)}
 			</div>

@@ -1,6 +1,8 @@
 import type { DropdownItem } from '@/components/dropdown';
-import { FiUser, FiSettings, FiLogOut } from 'react-icons/fi';
-import useAuthStore from '@/stores/user-store';
+import { FiUser, FiSettings } from 'react-icons/fi';
+import { Home } from 'lucide-react';
+import { GoProjectRoadmap } from 'react-icons/go';
+import { IoNotificationsOutline } from 'react-icons/io5';
 
 type MenuLink = {
 	title: string;
@@ -85,21 +87,30 @@ export const PublicNavigationMenuData: NavigationGroup[] = [
 	},
 ];
 
-export const ProtectedNavigationMenuData: NavigationItem[] = [
+export const ProtectedNavigationMenuData: MenuLink[] = [
 	{
-		label: 'Projects',
-		items: [
-			{
-				title: 'Post a project',
-				href: '/post-project',
-				description: 'Create a new project to find collaborators.',
-			},
-		],
+		title: 'Dashboard',
+		href: '/dashboard',
+		description: 'Welcome.',
+		icon: <Home />,
 	},
 	{
-		title: 'Messages',
-		href: '/messages',
-		description: 'Your personalized overview page.',
+		title: 'Post a project',
+		href: '/post-project',
+		description: 'Create a new project to find collaborators.',
+		icon: <GoProjectRoadmap />,
+	},
+	{
+		title: 'My Profile',
+		href: '/profile',
+		description: 'Your personalized profile page.',
+		icon: <FiUser />,
+	},
+	{
+		title: 'Notifications',
+		href: '/notifications',
+		description: 'Your personalized notifications page.',
+		icon: <IoNotificationsOutline />,
 	},
 ];
 
@@ -110,25 +121,15 @@ export const dropdownItems: DropdownItem[] = [
 	},
 	{
 		type: 'item',
-		label: 'Your profile',
+		label: 'Profile',
 		icon: <FiUser />,
 		href: '/profile',
 	},
 	{
 		type: 'item',
-		label: 'Account settings',
+		label: 'Settings',
 		icon: <FiSettings />,
 		href: '/settings',
-	},
-
-	{
-		type: 'separator',
-	},
-	{
-		type: 'auth',
-		label: 'Logout',
-		icon: <FiLogOut />,
-		onClick: () => useAuthStore.getState().reset(),
 	},
 ];
 

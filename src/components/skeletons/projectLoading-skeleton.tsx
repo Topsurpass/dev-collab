@@ -4,7 +4,7 @@ type ProjectLengthProp = {
 
 export function ProjectLoadingSkeleton({ length = 6 }: ProjectLengthProp) {
 	return (
-		<div className="min-h-screen-minus-100">
+		<div className="">
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 				{Array.from({ length }).map((_, i) => (
 					<div
@@ -36,7 +36,7 @@ export function ProjectLoadingSkeleton({ length = 6 }: ProjectLengthProp) {
 								))}
 								<div className="size-8 rounded-full bg-muted ring-2 ring-white" />
 							</div>
-							<div className="h-5 w-5 rounded bg-muted" />
+							<div className="h-8 w-15 rounded-2xl bg-muted" />
 						</div>
 					</div>
 				))}

@@ -1,8 +1,6 @@
-import { useState } from 'react';
-import { FiMenu, FiX, FiHelpCircle, FiBell } from 'react-icons/fi';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { FiBell } from 'react-icons/fi';
 import { Button } from '@/components/ui/button';
-import { NavigationMenuBar } from '@/components/navigation-bar';
-import { Link } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import DataSearchInput from './ui/search-bar';
 import { CustomDropdownMenu } from './dropdown';
@@ -10,41 +8,13 @@ import { dropdownItems } from '@/data/nav-menu-data';
 import ThemeToggleButton from '@/components/theme-toggle';
 import useGetProfile from '@/api/profile/use-get-profile';
 import _ from 'lodash';
-import type { NavigationItem } from '@/data/nav-menu-data';
 import { useNavigate } from 'react-router-dom';
 import useGetUnreadNotification from '@/api/notifications/use-get-unread';
+import { SidebarTrigger } from '@/components/ui/sidebar';
 
 interface NotificationProp {
 	count: number;
 	onClick: () => void;
-}
-function MobileMenuButton({ isOpen, toggle }: { isOpen: boolean; toggle: () => void }) {
-	return (
-		<Button variant="ghost" onClick={toggle} className="md:hidden  pl-2 py-0 pr-0">
-			{isOpen ? <FiX className="h-6 w-6" /> : <FiMenu className="h-6 w-6" />}
-		</Button>
-	);
-}
-
-function Logo() {
-	return (
-		<div className="flex-shrink-0 flex items-center gap-2">
-			<Link to="/" className="flex items-center gap-2">
-				<span className="text-xl font-bold text-indigo-800 dark:text-foreground">
-					TeamInSync
-				</span>
-			</Link>
-		</div>
-	);
-}
-
-function HelpButton() {
-	return (
-		<Button variant="ghost" size="icon" className="rounded-full hidden md:flex cursor-pointer">
-			<FiHelpCircle className="h-5 w-5" />
-			{/*Onclick function props to be added */}
-		</Button>
-	);
 }
 
 function NotificationButton({ count, onClick }: NotificationProp) {
@@ -67,17 +37,10 @@ function NotificationButton({ count, onClick }: NotificationProp) {
 	);
 }
 
-interface HeaderProps {
-	menuData?: NavigationItem[];
-}
-
-export default function ProtectedHeader({ menuData = [] }: HeaderProps) {
+export default function ProtectedHeader() {
 	const { data: Count } = useGetUnreadNotification();
 	const { data } = useGetProfile();
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const user = (data as any)?.data;
-	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-	const toggleMobileMenu = () => setMobileMenuOpen(prev => !prev);
 	const initials = _.join(
 		_.map(_.words(user?.full_name), word => _.toUpper(word[0])),
 		'',
@@ -85,15 +48,23 @@ export default function ProtectedHeader({ menuData = [] }: HeaderProps) {
 	const navigate = useNavigate();
 
 	return (
-		<header className="fixed top-0 left-0 w-full bg-background z-50 py-4 md:p-4 flex items-center gap-2 md:gap-5 border-b">
-			<div>
-				<MobileMenuButton isOpen={mobileMenuOpen} toggle={toggleMobileMenu} />
-			</div>
-			<Logo />
-			<nav className="hidden md:flex flex-1">
-				<NavigationMenuBar menuData={menuData} />
-			</nav>
-			<div className="flex-1 flex justify-end items-center gap-2 md:gap-4 pr-5">
+		<header className="w-full bg-background  py-4 px-3 flex items-center gap-2 md:gap-5 border-b">
+			<SidebarTrigger className="text-muted-foreground" />
+			<CustomDropdownMenu
+				trigger={
+					<div className="cursor-pointer flex gap-2 items-center text-muted-foreground">
+						<Avatar className="rounded-full h-8 w-8">
+							<AvatarImage src={user?.profile_picture_url} alt="@leerob" />
+							<AvatarFallback>{initials}</AvatarFallback>
+						</Avatar>
+						<p className="">{user?.full_name}</p>
+					</div>
+				}
+				items={dropdownItems}
+				align="end"
+				className="w-60"
+			/>
+			<div className="flex-1 flex justify-end items-center gap-2 md:gap-4 md:pr-5">
 				<DataSearchInput
 					value=""
 					onChange={() => {}}
@@ -102,20 +73,9 @@ export default function ProtectedHeader({ menuData = [] }: HeaderProps) {
 					placeholder="Search projects"
 				/>
 				<ThemeToggleButton />
-				<HelpButton />
-				<NotificationButton count={Count?.data?.count} onClick={() => navigate('/notifications')} />
-				<CustomDropdownMenu
-					trigger={
-						<div className="cursor-pointer">
-							<Avatar className="rounded-full h-8 w-8">
-								<AvatarImage src={user?.profile_picture_url} alt="@leerob" />
-								<AvatarFallback>{initials}</AvatarFallback>
-							</Avatar>
-						</div>
-					}
-					items={dropdownItems}
-					align="end"
-					className="w-60"
+				<NotificationButton
+					count={Count?.data?.count}
+					onClick={() => navigate('/notifications')}
 				/>
 			</div>
 		</header>

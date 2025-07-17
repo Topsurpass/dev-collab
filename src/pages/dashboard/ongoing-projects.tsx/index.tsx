@@ -5,6 +5,9 @@ import { ErrorDisplay } from '@/components/errorDisplay';
 
 export default function OngoingProjects() {
 	const { data: projectData, isLoading, isError, error, refetch } = useGetProjects();
+	function toggleFavorite(id: number) {
+		console.log(id);
+	}
 
 	if (isError) {
 		return (
@@ -25,6 +28,7 @@ export default function OngoingProjects() {
 			projects={projectData ?? []}
 			isLoading={isLoading}
 			loadingComponent={<ProjectLoadingSkeleton length={6} />}
+			onClickFavorite={toggleFavorite}
 		/>
 	);
 }

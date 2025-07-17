@@ -8,6 +8,7 @@ export const ProjectData: ProjectCardProps[] = [
 		description:
 			'A comprehensive overhaul of a Magento store into a headless commerce solution using React and Node.js with GraphQL integration.',
 		status: 'completed',
+		is_favorited: false,
 		owner: 1,
 		created_at: '2025-07-01T10:00:00Z',
 		updated_at: '2025-07-05T15:00:00Z',
@@ -59,6 +60,7 @@ export const ProjectData: ProjectCardProps[] = [
 		description:
 			'An intelligent dashboard providing machine learning insights into e-commerce performance with real-time visualizations.',
 		status: 'completed',
+		is_favorited: false,
 		owner: 2,
 		created_at: '2025-06-15T09:00:00Z',
 		updated_at: '2025-07-04T11:30:00Z',
@@ -110,6 +112,7 @@ export const ProjectData: ProjectCardProps[] = [
 		description:
 			'A fitness tracking app with social features, built using React Native, integrating with wearable devices and Firebase backend.',
 		status: 'cancelled',
+		is_favorited: false,
 		owner: 3,
 		created_at: '2025-05-20T14:00:00Z',
 		updated_at: '2025-06-30T10:00:00Z',
@@ -147,6 +150,7 @@ export const ProjectData: ProjectCardProps[] = [
 		description:
 			'A blockchain-based solution for supply chain transparency, using Ethereum smart contracts, Web3.js, and Node.js.',
 		status: 'on_hold',
+		is_favorited: false,
 		owner: 4,
 		created_at: '2025-04-01T12:00:00Z',
 		updated_at: '2025-07-01T12:00:00Z',
